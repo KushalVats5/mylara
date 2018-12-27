@@ -17,17 +17,21 @@ Route::get('/', function () {
 
 Route::get('auth/siteAdmin','Admin\AdminController@index');
 Route::post('auth/adminLogin','Admin\AdminController@adminLogin');
+
 Route::group(['middleware' => 'is-admin'], function () {
 	Route::get('auth/admin/profile','Admin\AdminController@profile');
 	Route::post('auth/admin/changepassword','Admin\AdminController@changepassword');
-   	Route::get('auth/admin','Admin\AdminController@dashboard');
-   	Route::get('auth/admin/adduser','Admin\AdminController@adduser');
-   	Route::post('auth/admin/saveuser','Admin\AdminController@saveuser');
-   	Route::post('auth/admin/updateuser','Admin\AdminController@updateuser');
-   	Route::get('auth/admin/user/edit/{id}','Admin\AdminController@edituser');
-   	Route::get('auth/admin/users','Admin\AdminController@userlist');
+ 	Route::get('auth/admin','Admin\AdminController@dashboard');
+ 	Route::get('auth/admin/adduser','Admin\AdminController@adduser');
+ 	Route::post('auth/admin/saveuser','Admin\AdminController@saveuser');
+ 	Route::post('auth/admin/updateuser','Admin\AdminController@updateuser');
+ 	Route::get('auth/admin/user/edit/{id}','Admin\AdminController@edituser');
+ 	Route::get('auth/admin/users','Admin\AdminController@userlist');
 	Route::get('auth/admin/user/del/{id}','Admin\AdminController@deleteuser');
 	Route::post('auth/admin/user/isactive','Admin\AdminController@isactive');
+	
+	Route::get('auth/admin/post/add','Admin\PostController@create');
+	Route::post('auth/admin/post/store','Admin\PostController@store');
 });
 
 Route::group(['middleware' => 'is-subscriber'], function () {
@@ -49,11 +53,7 @@ Route::post('/store','RegisterController@store');
 Route::get('auth/user/edit/{id}','RegisterController@edit');
 
 Route::post('user/update/','RegisterController@update');
+
+Route::get('/post/{slug}', 'HomeController@showpost');
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
-
-Route::get('image-gallery', 'ImageGalleryController@index');
-Route::post('image-gallery', 'ImageGalleryController@upload');
-Route::delete('image-gallery/{id}', 'ImageGalleryController@destroy');

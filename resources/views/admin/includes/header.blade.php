@@ -6,7 +6,7 @@
     <script type="text/javascript" src="{{ URL::asset('admin/js/admin-script.js') }}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 	<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
-
+<script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
 	<!-- Include the above in your HEAD tag -->
     <link href="{{ URL::asset('admin/css/bootstrap.min.css') }}" rel="stylesheet" id="bootstrap-css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet" id="bootstrap-css">

@@ -424,6 +424,7 @@ header {
 
 })(window);
 </script>
+<?php /* ?>
 <!-- @extends('layouts.app')
 
 @section('content')
@@ -447,3 +448,4 @@ header {
     </div>
 </div>
 @endsection -->
+<?php */ ?>
