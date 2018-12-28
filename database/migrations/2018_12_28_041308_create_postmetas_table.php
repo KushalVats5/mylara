@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImageGalleryTable extends Migration
+class CreatePostmetasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateImageGalleryTable extends Migration
      */
     public function up()
     {
-        Schema::create('image_gallery', function (Blueprint $table) {
+        Schema::create('postmetas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('image');
+            $table->integer('post_id')->unsigned();
+            $table->text('meta_key')->nullable();
+            $table->text('meta_value')->nullable();
+            $table->foreign('post_id')->references('id')->on('postmetas')->onDelete('cascade');
             $table->timestamps();
         });
+
     }
 
     /**
@@ -28,6 +31,6 @@ class CreateImageGalleryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('image_gallery');
+        Schema::dropIfExists('postmetas');
     }
 }

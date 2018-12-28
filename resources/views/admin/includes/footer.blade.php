@@ -22,7 +22,7 @@
 <!-- Alert Box HTML -->
 
 <script type="text/javascript">
-  $.fn.pageMe = function(opts){
+ /* $.fn.pageMe = function(opts){
     var $this = this,
         defaults = {
             perPage: 7,
@@ -128,7 +128,7 @@ $(document).ready(function(){
     
   $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:10});
     
-});
+});*/
 
 $(document).ready(function() {
     $('#sandbox-container input').datepicker({

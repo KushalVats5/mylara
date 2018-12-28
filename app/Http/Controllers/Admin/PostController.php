@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManagerStatic as Image;
 use App\Post;
 Use Redirect;
 use Helper;
 use DB;
+use File;
 
 class PostController extends Controller
 {
@@ -25,9 +27,37 @@ class PostController extends Controller
     /**
     * Show create post view
     */
-    public function create()
-    {
-        return view('admin/add-post');
+    public function create($type, $id=false)
+    {	
+    	if($id){
+			$postData = Post::where('id', $id)
+					    ->where('post_type', $type)
+					    ->get()->first();
+			if( !empty($postData) ){
+				$description 	= Helper::get_post_meta($id,'_meta_description');
+				$keywords 		= Helper::get_post_meta($id, '_meta_keywords');
+			}else{
+				$description 	= false;
+				$keywords 		= false;
+			}
+
+    		$data = array(
+    					'type' 			=> $type, 
+    					'id' 			=> $id,
+    					'postData' 		=> $postData, 
+    					'description' 	=> $description, 
+    					'keywords' 		=> $keywords
+    					);
+    	}else{
+    		$data = array(
+    					'type' 			=> $type, 
+    					'id' 			=> $id,
+    					'postData' 		=> false, 
+    					'description' 	=> false,
+    					'keywords' 		=> false
+    					);
+    	}
+    	return view('admin/add-post')->with('data', $data);
     }
 
     /**
@@ -36,6 +66,7 @@ class PostController extends Controller
     public function store(Request $request) {
     	$rules = [
           'title'     => 'required',
+          'featured_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
       	];
 
       	$customMessages = [
@@ -49,25 +80,95 @@ class PostController extends Controller
       	}
       	// Create slug.
       	$slug = Helper::createSlug($request->title);
-
+        if ($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $featured_image = Helper::upload_featured_image( $image);
+            echo $featured_image;
+          }else{
+            $featured_image = null;
+        }
         $post = Post::create([
-          'name' 	=> $request->title,
-          'slug' 	=> $slug,
-          'content' => htmlspecialchars($request->content),
-          'excerpt'	=> htmlspecialchars($request->excerpt),
+          'title' 			=> $request->title,
+          'slug' 			=> $slug,
+          'post_type' 		=> $request->post_type,
+          'featured_image' 	=> $featured_image,
+          'content' 		=> htmlspecialchars($request->content),
+          'excerpt'			=> htmlspecialchars($request->excerpt),
         ]);
-        // $post->id;
-        DB::table('metas')->insert(
-		    ['description' => $request->description, 'keywords' => $request->keywords, 'post_id' => $post->id]
-		);
-        return redirect()->back()->with('success', 'Post successfully added!');
+
+        
+		Helper::add_post_meta( $post->id, '_meta_description',  $request->description);
+		
+		Helper::add_post_meta( $post->id, '_meta_keywords', $request->keywords);
+		
+        return redirect()->back()->with('success', 'Record successfully added!');
+    }
+
+    /**
+    * Update post
+    */    
+    public function update(Request $request, $id) {
+    	$rules = [
+          'title'     => 'required',
+      	];
+
+      	$customMessages = [
+          'title.required'      => 'Title field is required.',
+      	];
+     
+      	$validator = Validator::make($request->all(), $rules, $customMessages);
+      	if ($validator->fails()) {
+          // send back to the page with the input data and errors
+       		return redirect()->back()->withInput()->withErrors($validator);
+      	}
+
+      	 // Get avatar from database 
+		if ($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $featured_image = Helper::upload_featured_image( $image);
+          }else{
+          	$featured_image = Post::where('id', $id)->first()->featured_image;
+            // $featured_image = $avatar;
+        }
+
+      	Post::where('id',$id)->update([
+	      		'title' 			=> $request->title,
+		        'slug' 				=> $request->slug,
+		        'post_type' 		=> $request->post_type,
+		        'featured_image' 	=> $featured_image,
+		        'content' 			=> htmlspecialchars($request->content),
+		        'excerpt'			=> htmlspecialchars($request->excerpt),
+      	]);
+        
+
+		Helper::update_post_meta( $id, '_meta_description',  $request->description);
+		
+		Helper::update_post_meta( $id, '_meta_keywords', $request->keywords);
+
+		
+        return redirect()->back()->with('success', 'Record successfully updated!');
     }
 
 	/**
     * Show post
     */    
-	public function show($slug){
-	    $game = Game::where('slug', $slug)->first();
-	    return view('game.show')->with('game', $game);
+	public function showposts(){
+	    // $posts = Post::all();
+	    $posts = Post::paginate(10);
+      	return view('admin/posts',compact('posts',$posts));
 	}
+
+
+	/**
+    * Delete post from posts table 
+    */  
+    public function deletepost(Request $request, $id)
+    { 
+      $user = Post::find($id);    
+      $user->delete();
+      Session::flash('success', "Record deleted successfully!!!");
+      return Redirect::back();
+      // return Redirect::back()->with(['success', 'User deleted successfully!!!']);
+      
+    }
 }
