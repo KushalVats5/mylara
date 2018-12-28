@@ -30,8 +30,12 @@ Route::group(['middleware' => 'is-admin'], function () {
 	Route::get('auth/admin/user/del/{id}','Admin\AdminController@deleteuser');
 	Route::post('auth/admin/user/isactive','Admin\AdminController@isactive');
 	
-	Route::get('auth/admin/post/add','Admin\PostController@create');
+	Route::get('auth/admin/add/{type}','Admin\PostController@create');
+	Route::get('auth/admin/add/{type}/{id}','Admin\PostController@create');
 	Route::post('auth/admin/post/store','Admin\PostController@store');
+	Route::post('auth/admin/post/update/{id}','Admin\PostController@update');
+	Route::get('auth/admin/posts','Admin\PostController@showposts');
+	Route::get('auth/admin/post/del/{id}','Admin\PostController@deletepost');
 });
 
 Route::group(['middleware' => 'is-subscriber'], function () {
