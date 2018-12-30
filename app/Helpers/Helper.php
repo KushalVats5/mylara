@@ -143,4 +143,6 @@ class Helper {
         return $filename;
     }
 
+    dd($post);
+
 }
