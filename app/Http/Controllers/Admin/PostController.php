@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\User;
 use App\Post;
 Use Redirect;
 use Helper;
@@ -34,8 +36,10 @@ class PostController extends Controller
 					    ->where('post_type', $type)
 					    ->get()->first();
 			if( !empty($postData) ){
-				$description 	= Helper::get_post_meta($id,'_meta_description');
-				$keywords 		= Helper::get_post_meta($id, '_meta_keywords');
+        $metaTags  = Helper::get_post_meta($id,'_meta_tags');
+        $metaTags = unserialize($metaTags);
+        $description = $metaTags['description'];
+        $keywords   = $metaTags['keywords'];
 			}else{
 				$description 	= false;
 				$keywords 		= false;
@@ -89,17 +93,16 @@ class PostController extends Controller
         }
         $post = Post::create([
           'title' 			=> $request->title,
-          'slug' 			=> $slug,
+          'slug'      => $slug,          
+          'user_id'      => Auth::user()->id,          
           'post_type' 		=> $request->post_type,
           'featured_image' 	=> $featured_image,
           'content' 		=> htmlspecialchars($request->content),
           'excerpt'			=> htmlspecialchars($request->excerpt),
         ]);
 
-        
-		Helper::add_post_meta( $post->id, '_meta_description',  $request->description);
-		
-		Helper::add_post_meta( $post->id, '_meta_keywords', $request->keywords);
+         $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
+        Helper::add_post_meta( $post->id, '_meta_tags',  serialize($metaTags)); 
 		
         return redirect()->back()->with('success', 'Record successfully added!');
     }
@@ -141,9 +144,8 @@ class PostController extends Controller
       	]);
         
 
-		Helper::update_post_meta( $id, '_meta_description',  $request->description);
-		
-		Helper::update_post_meta( $id, '_meta_keywords', $request->keywords);
+	$metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
+        Helper::update_post_meta( $id, '_meta_tags',  serialize($metaTags));
 
 		
         return redirect()->back()->with('success', 'Record successfully updated!');

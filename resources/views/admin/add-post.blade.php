@@ -22,11 +22,11 @@
     </div>
   </div>
   @endif
-@if (!empty($data['id']))
-    @php $action = 'update/'.$data['id'] @endphp
-@else
-    @php $action = 'store' @endphp
-@endif
+  @if (!empty($data['id']))
+  @php $action = 'update/'.$data['id'] @endphp
+  @else
+  @php $action = 'store' @endphp
+  @endif
 
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12 gutter">
@@ -42,10 +42,10 @@
                   <h4 class="panel-title">Create {{ucwords($data['type'])}}</h4>
                 </div>
                 <div class="panel-body">
-                  <div class="col-md-8">
-                  <div class="form-group col-md-12">
+                <div class="col-md-8 col-md-8main">
+                    <div class="form-group col-md-12">
                       <div class="col-sm-12">
-                      <label class="control-label">Title</label>
+                        <label class="control-label">Title</label>
                         <input type="text" class="form-control" name="title" value="{{ $data['postData']['title'] ? $data['postData']['title'] : old('title') }}" placeholder="Title" /> 
                         @if ($errors->has('title'))
                         <span style="color:red;">{{ $errors->first('title') }}</span>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="form-group col-md-12">
                       <div class="col-sm-12">
-                      <label class="control-label">Content</label>
+                        <label class="control-label">Content</label>
                         <textarea class="form-control" name="content" id="post-content" placeholder="Content" >{{ $data['postData']['content'] ? $data['postData']['content'] : old('content') }}</textarea> 
                         @if ($errors->has('content'))
                         <span style="color:red;">{{ $errors->first('content') }}</span>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-group col-md-12">
                       <div class="col-sm-12">
-                      <label class="control-label">Excerpt</label>
+                        <label class="control-label">Excerpt</label>
                         <textarea class="form-control" name="excerpt" id="post-excerpt" placeholder="Excerpt" >{{ $data['postData']['excerpt'] ? $data['postData']['excerpt'] : old('excerpt') }}</textarea> 
                         @if ($errors->has('excerpt'))
                         <span style="color:red;">{{ $errors->first('excerpt') }}</span>
@@ -76,38 +76,38 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <div class="col-md-12">
+                  <div class="col-md-3 col-md-4side">
+                    <div class="panel-body text-center">
+                      <div class="">
                         <?php 
 
                         ?>
                         <div id="kv-avatar-errors" class="center-block" style="width:800px;display:none">
                         </div>
                       </div>
-                      <div class="panel-body text-center">
-
-                         @if($data['postData']['featured_image'])                    
-                          @php $featured_image = asset('featured/medium/'.$data['postData']['featured_image'])  @endphp
+                      <div class="form-group">
+                        @if($data['postData']['featured_image'])                    
+                        @php $featured_image = asset('featured/medium/'.$data['postData']['featured_image'])  @endphp
                         @else
-                          @php $featured_image = 'https://bootdey.com/img/Content/avatar/avatar6.png'; @endphp
+                        @php $featured_image = 'https://bootdey.com/img/Content/avatar/avatar6.png'; @endphp
                         @endif
-                       <img src="{{$featured_image}}" class="img-circle post-featured-image" alt="User featured_image">
-                        <input id="featured_image" name="featured_image" type="file" class="file-loading" style="margin-left: 40%;">
-                      </div>                 
+                        
+                          <img src="{{$featured_image}}" class="img-circle post-featured-image file-input" alt="User featured_image" title="Change Pic">
+                          <input id="featured_image" name="featured_image" type="file" class="file-loading" style="margin-left: 15%; display: none;">
+                       </div>                 
 
-                      <div class="form-group col-md-12">
-                        <div class="col-sm-12">
-                        <label class="control-label">Description</label>
+                      <div class="form-group">
+                        <div class="">
+                          <label class="control-label">Description</label>
                           <input type="text" class="form-control" name="description" value="{{ $data['description'] ? $data['description'] : old('description') }}" placeholder="Description" /> 
                           @if ($errors->has('name'))
                           <span style="color:red;">{{ $errors->first('description') }}</span>
                           @endif                   
                         </div>
                       </div>
-                      <div class="form-group col-md-12">
-                        <div class="col-sm-12">
-                        <label class="control-label">Keywords</label>
+                      <div class="form-group">
+                        <div class="">
+                          <label class="control-label">Keywords</label>
                           <input type="text" class="form-control" name="keywords" value="{{ $data['keywords'] ? $data['keywords'] : old('keywords') }}" placeholder="keywords" /> 
                           @if ($errors->has('name'))
                           <span style="color:red;">{{ $errors->first('keywords') }}</span>

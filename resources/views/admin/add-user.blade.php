@@ -45,8 +45,8 @@
                   </div>
 
                   <div class="panel-body text-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="img-circle profile-avatar" alt="User avatar">
-                    <input id="avatar" name="avatar" type="file" class="file-loading" style="margin-left: 40%;">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="img-circle post-featured-image file-input" alt="User featured_image" title="Change Pic">
+                          <input id="featured_image" name="avatar" type="file" class="file-loading" style="margin-left: 15%; display: none;">
                   </div>                 
                 </div>
                   <div class="form-group">
@@ -247,4 +247,5 @@
     </div>
   </div>
 </div>
+
 @endsection

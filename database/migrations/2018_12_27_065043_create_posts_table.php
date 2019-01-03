@@ -15,6 +15,7 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->default(1);
             $table->string('title');
             $table->string('slug');
             $table->text('content')->nullable();
@@ -22,6 +23,7 @@ class CreatePostsTable extends Migration
             $table->text('post_type')->nullable();
             $table->string('featured_image')->nullable();
             $table->enum('active', array('0', '1'))->default('1');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

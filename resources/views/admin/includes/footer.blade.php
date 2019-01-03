@@ -189,6 +189,29 @@ $('#sandbox-container input').on('hide', function(e){
       });
     });
 
+
+// File Preview on click
+  $(document).ready(function(){
+  $('.file-input').click(function(){
+    $('#featured_image').click().change(function(){
+      readURL(this);
+    });
+  });
+});
+
+//  Change src of file input privew
+function readURL(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('.file-input').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
 </script>
 </body>
 </html>

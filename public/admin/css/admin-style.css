@@ -791,10 +791,38 @@ header {
 }
 /*Main CSS*/
 
+.col-md-4side {
+    border: 2px solid whitesmoke;
+    margin-left: 20px;
+}
+.col-md-8main{
+    border: 2px solid whitesmoke;
+}
 
+.file-input:hover{
+    width: 200px;
+    height: 200px;
+    /* content: ''; */
+    display: inline-block;
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    opacity: 0.5;
+}
+.file-input {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #ccc4c4;
+}
 
-
-
+.form-horizontal .control-label {
+    padding-top: 7px;
+    /* margin-bottom: 0; */
+    text-align: left;
+    width: 100%;
+    margin-bottom: 5px;
+}
 /*================Sidebar navigation css ====================== */
  /*Remove rounded coners*/
 
