@@ -36,6 +36,14 @@ Route::group(['middleware' => 'is-admin'], function () {
 	Route::post('auth/admin/post/update/{id}','Admin\PostController@update');
 	Route::get('auth/admin/posts','Admin\PostController@showposts');
 	Route::get('auth/admin/post/del/{id}','Admin\PostController@deletepost');
+
+
+	Route::get('auth/admin/upload-image','Admin\FileController@index');
+	Route::post('auth/admin/upload-image',['as'=>'image.upload','uses'=>'Admin\FileController@uploadImages']);
+
+	Route::get('auth/admin/image-gallery', 'Admin\ImageGalleryController@index');
+	Route::post('auth/admin/image-gallery', 'Admin\ImageGalleryController@upload');
+	Route::delete('auth/admin/image-gallery/{id}', 'Admin\ImageGalleryController@destroy');
 });
 
 Route::group(['middleware' => 'is-subscriber'], function () {
