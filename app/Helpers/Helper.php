@@ -1,10 +1,14 @@
 <?php
 // use Illuminate\Support\Str;
 namespace App\Helpers;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 use DB;
 use File;
+use Request;
 
 class Helper {
 
@@ -119,7 +123,7 @@ class Helper {
     }
 
     /**
-    * Get all post meta by post id
+    * Upload Featured Image
     */
     static function upload_featured_image( $image )
     {
@@ -141,6 +145,43 @@ class Helper {
         $image->move($destinationPath, $filename);
 
         return $filename;
+    }
+
+    /**
+    * Get all post meta by post id
+    */
+    static function current_postmetas( )
+    {
+        $post = self::get_current_post_id();
+        $metas = DB::table('postmetas')
+                    ->select(['meta_value'])
+                    ->where('post_id', $post->id)
+                    ->get();
+          $metas = unserialize($metas[0]->meta_value);
+        $image = asset('featured/medium/'.$post->featured_image);
+        $postMetas = "<title>".$post->title." - ".env('SITE_URL', 'Site Name')."</title>\r\n";
+        $postMetas .= "<meta name='author' content='".Auth::user()->name."'>\r\n";
+        foreach ($metas as $key => $value) {
+            $postMetas .= "<meta name='".$key."' itemprop='description' content='".$value."' />\r\n";
+        }
+        $postMetas .= "<meta property='og:title' content='".$post->title."' />\r\n";
+        $postMetas .= "<meta property='og:description' content='".strip_tags(html_entity_decode($post->excerpt))."' />\r\n";
+        $postMetas .= "<meta property='og:url' content='http://localhost/test-lara/public' />\r\n";
+        $postMetas .= "<meta property='og:image:size' content='300' />\r\n";
+        $postMetas .= "<meta property='og:image' content='".$image."' />\r\n";
+        $postMetas .= "<meta property='og:site_name' content='Mylara' />\r\n";
+        return $postMetas;
+    }
+
+    /**
+    * Get current post/page id by slug from url
+    */
+    static function get_current_post_id( )
+    {
+        $slug = Request::segment(count(Request::segments()));
+        $post = DB::table('posts')
+                    ->where('slug', $slug)->first(['id','title','featured_image', 'excerpt']);
+        return $post;
     }
 
 }

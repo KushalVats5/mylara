@@ -1,8 +1,12 @@
 <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
     <div class="logo">
         <a hef="home.html">
-        <img src="{{URL::asset('/images/circled-user-male.png')}}" alt="profile Pic" class="hidden-xs hidden-sm">
-        <img src="{{URL::asset('/images/circled-user-male.png')}}" alt="profile Pic" class="visible-xs visible-sm circle-logo">
+       @if(Auth::user()->avatar)
+        <img src="{{asset('admin/avatars/thumb/'.Auth::user()->avatar) }}" alt="profile Pic" class="img-circle post-featured-image hidden-xs hidden-sm">
+        @else
+        <img src="{{URL::asset('/images/circled-user-male.png')}}" alt="profile Pic" class="img-circle post-featured-image hidden-xs hidden-sm">
+         @endif
+        <!-- <img src="{{URL::asset('/images/circled-user-male.png')}}" alt="profile Pic" class="visible-xs visible-sm circle-logo"> -->
         <!-- <img src="http://jskrishna.com/work/merkury/images/logo.png" alt="merkery_logo" class="hidden-xs hidden-sm">
             <img src="http://jskrishna.com/work/merkury/images/circle-logo.png" alt="merkery_logo" class="visible-xs visible-sm circle-logo"> -->
         </a>
