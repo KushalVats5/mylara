@@ -36,29 +36,32 @@ class PostController extends Controller
 					    ->where('post_type', $type)
 					    ->get()->first();
 			if( !empty($postData) ){
-        $metaTags  = Helper::get_post_meta($id,'_meta_tags');
-        $metaTags = unserialize($metaTags);
-        $description = $metaTags['description'];
-        $keywords   = $metaTags['keywords'];
+        $metaTags     = Helper::get_post_meta($id,'_meta_tags');
+        $post_slider  = Helper::get_post_meta( $id, '_post_slider');
+        $metaTags     = unserialize($metaTags);
+        $post_slider  = unserialize($post_slider);
+        $description  = $metaTags['description'];
+        $keywords     = $metaTags['keywords'];
 			}else{
 				$description 	= false;
 				$keywords 		= false;
 			}
 
     		$data = array(
-    					'type' 			=> $type, 
-    					'id' 			=> $id,
-    					'postData' 		=> $postData, 
-    					'description' 	=> $description, 
-    					'keywords' 		=> $keywords
+    					'type' 			   => $type, 
+    					'id' 			     => $id,
+    					'postData' 		 => $postData, 
+    					'description'  => $description, 
+              'keywords'     => $keywords,
+    					'post_slider'  => $post_slider
     					);
     	}else{
     		$data = array(
-    					'type' 			=> $type, 
-    					'id' 			=> $id,
-    					'postData' 		=> false, 
-    					'description' 	=> false,
-    					'keywords' 		=> false
+    					'type' 			   => $type, 
+    					'id' 			     => $id,
+    					'postData' 	   => false, 
+    					'description'  => false,
+    					'keywords' 	   => false
     					);
     	}
     	return view('admin/add-post')->with('data', $data);
@@ -91,6 +94,9 @@ class PostController extends Controller
           }else{
             $featured_image = null;
         }
+
+        
+
         $post = Post::create([
           'title' 			=> $request->title,
           'slug'      => $slug,          
@@ -103,6 +109,13 @@ class PostController extends Controller
 
          $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
         Helper::add_post_meta( $post->id, '_meta_tags',  serialize($metaTags)); 
+        $sliders = array();
+        foreach ($request->file('uploadFile') as $key => $value) {
+            $imageName = time(). $key . '.' . $value->getClientOriginalExtension();
+            $sliders[] = $imageName;
+            $value->move(public_path('images/sliders'), $imageName);
+        }
+        Helper::add_post_meta( $post->id, '_post_slider',  serialize($sliders));
 		
         return redirect()->back()->with('success', 'Record successfully added!');
     }
@@ -173,4 +186,37 @@ class PostController extends Controller
       // return Redirect::back()->with(['success', 'User deleted successfully!!!']);
       
     }
+    
+    /**
+    * Delete post slider 
+    */  
+    public function delslide(Request $request)
+    { 
+      
+      $post_slider  = Helper::get_post_meta( $request->post_id, '_post_slider');
+      $post_slider = unserialize($post_slider);
+      unset($post_slider[$request->post_id]);
+      print_r(array_values($post_slider));
+      // return response()->json(['success'=>'Images Uploaded Successfully.']);
+    }
+    
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    /*public function imagesUploadPost(Request $request)
+    {
+        request()->validate([
+            'uploadFile' => 'required',
+        ]);
+
+        foreach ($request->file('uploadFile') as $key => $value) {
+            $imageName = time(). $key . '.' . $value->getClientOriginalExtension();
+            $value->move(public_path('images/sliders'), $imageName);
+        }
+
+        return response()->json(['success'=>'Images Uploaded Successfully.']);
+    }*/
 }

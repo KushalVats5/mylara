@@ -2,10 +2,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use DB;
 use App\User;
 use Hash;
-use validator;
 use Auth;
 Use Redirect;
 use Session;
@@ -20,6 +20,35 @@ class RegisterController extends Controller
    	}
    	
    	public function store( Request $request ){
+      $rules = [
+          'name'        => 'required',
+          'first_name'  => 'required',
+          'last_name'   => 'required',
+          'email'       => 'required|email',
+          'psw'         => 'required|min:6',
+          'repeatpsw'   => 'required|min:6|required_with:psw|same:psw',
+      ];
+
+      $customMessages = [
+          'first_name.required' => 'First name field is required.',
+          'last_name.required'  => 'Last name field is required.',
+          'name.required'       => 'Display name field is required.',
+          'email.required'      => 'Email field is required.',
+          'email.email'         => 'Enter valied email address.',
+          'psw.required'        => 'Password field is required.',
+          'psw.min'             => 'Password must be 6 character.',
+          'repeatpsw.required'  => 'Confirm Password field is required.',
+          'repeatpsw.min'       => 'Confirm password must be 6 character.',
+          'repeatpsw.same'       => 'The password and confirm password must match',
+      ];
+
+      
+      $validator = Validator::make($request->all(), $rules, $customMessages);
+      if ($validator->fails()) {
+          // send back to the page with the input data and errors
+         return Redirect::back()->withInput()->withErrors($validator);
+      }
+
    		// check form field reuired
    		$this->validate($request, [
             'email' 	=> 'required|email',
@@ -27,18 +56,23 @@ class RegisterController extends Controller
         ]);
         // save data for new user
         $user = User::create(array(
-		    'name' 				=> $request->get('name'),
-		    'user_type' 		=> 'subscriber',
-		    'password' 			=> Hash::make($request->get('repeatpsw')),
-		    'email'    			=> $request->get('email'),
-		    'remember_token'    => str_random(10),
+		    'name' 				    => $request->get('name'),
+        'user_type'       => 'subscriber',
+        'first_name'      => $request->get('first_name'),
+        'middle_name'     => $request->get('middle_name'),
+		    'last_name' 		  => $request->get('last_name'),
+		    'password' 			  => Hash::make($request->get('repeatpsw')),
+		    'email'    			  => $request->get('email'),
+		    'remember_token'  => str_random(10),
 		));
 
         // auto login  
         $user_data = array(
-   			'email' 	=> $request->get('email'),
-   			'password' 	=> $request->get('psw'),
-   		);
+        'email'      => $request->get('email'),
+        'password'  => $request->get('psw'),
+        'user_type' => 'subscriber',
+        'is_active' => '1',
+      );
 
    		if(Auth::attempt($user_data)) {
             return redirect('auth/successlogin');       

@@ -8,6 +8,7 @@
 	<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
     <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
 	<!-- Include the above in your HEAD tag -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
     <link href="{{ URL::asset('admin/css/bootstrap.min.css') }}" rel="stylesheet" id="bootstrap-css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet" id="bootstrap-css">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">

@@ -1,451 +1,517 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+@include('inc.header');
+    <section id="featured" class="bg">
+      <!-- start slider -->
 
-<html>
- <head>
 
-  <!-- Include the above in your HEAD tag --> 
-  <script>
-    function init() {
-        window.addEventListener('scroll', function(e){
-            var distanceY = window.pageYOffset || document.documentElement.scrollTop,
-                shrinkOn = 300,
-                header = document.querySelector("header");
-            if (distanceY > shrinkOn) {
-                classie.add(header,"smaller");
-            } else {
-                if (classie.has(header,"smaller")) {
-                    classie.remove(header,"smaller");
-                }
-            }
-        });
-    }
-    window.onload = init();
-</script> 
- </head> 
- <body> 
-  <div id="wrapper"> 
-   <header> 
-    <div class="container clearfix"> 
-     <h1 id="logo"> Quixotic Design </h1> 
-     <nav> 
-      <a href="">Lorem</a> 
-      <a href="">Ipsum</a> 
-       @if(isset(Auth::user()->email))
-        <a href="{{ url('auth/logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-        @else
-    <a href="{{ url('auth/login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-        <a href="{{ url('/register') }}"><span class="glyphicon glyphicon-log-in"></span> Register</a>
-        @endif
-     </nav> 
-    </div> 
-   </header>
-   <!-- /header --> 
-   <div id="main"> 
-    <div id="content"> 
-     <section> 
-      <div class="container"> 
-       <h1>Header Resize On Scroll with Animations</h1> 
-       <p>Cupcake ipsum dolor sit amet lollipop. Macaroon candy cotton candy bear claw macaroon carrot cake pastry icing dessert. Cupcake pastry tart sesame snaps lollipop donut pie. Cookie apple pie toffee lemon drops jelly beans cheesecake sweet roll. Jelly-o soufflé donut candy canes wafer dragée sweet cheesecake. Macaroon caramels pie cookie gummi bears. Ice cream jelly-o toffee cookie gingerbread cookie. Soufflé fruitcake jelly-o jelly chupa chups jelly beans. Dragée marzipan pastry macaroon oat cake muffin soufflé topping liquorice. Jelly-o chocolate cake lollipop.</p> 
-       <p>Sugar plum muffin cookie pastry oat cake icing candy canes chocolate. Gummi bears chupa chups fruitcake dessert jelly. Muffin cookie ice cream soufflé pastry lollipop gingerbread sweet. Unerdwear.com bonbon candy marzipan bonbon gummies chocolate cake gummi bears powder. Unerdwear.com tart halvah chocolate cake dragée liquorice. Sugar plum chocolate bar pastry liquorice dragée jelly powder. Jelly tootsie roll applicake caramels. Marzipan candy tootsie roll donut. Gummies ice cream macaroon applicake.</p> 
-       <p> <a href="https://www.facebook.com/pratik.chauhan.cp">« Connect With Me | Chauhan PRatik</a><br /> <a href="http://bootsnipp.com/cppratikcp">« Go back to all tutorials?</a> </p> 
-      </div> 
-     </section> 
-     <section class="color"> 
-      <div class="container"> 
-       <h1>Cupcakes for the people!</h1> 
-       <p>Cupcake ipsum dolor sit amet lollipop. Macaroon candy cotton candy bear claw macaroon carrot cake pastry icing dessert. Cupcake pastry tart sesame snaps lollipop donut pie. Cookie apple pie toffee lemon drops jelly beans cheesecake sweet roll. Jelly-o soufflé donut candy canes wafer dragée sweet cheesecake. Macaroon caramels pie cookie gummi bears. Ice cream jelly-o toffee cookie gingerbread cookie. Soufflé fruitcake jelly-o jelly chupa chups jelly beans. Dragée marzipan pastry macaroon oat cake muffin soufflé topping liquorice. Jelly-o chocolate cake lollipop.</p> 
-       <p>Sugar plum muffin cookie pastry oat cake icing candy canes chocolate. Gummi bears chupa chups fruitcake dessert jelly. Muffin cookie ice cream soufflé pastry lollipop gingerbread sweet. Unerdwear.com bonbon candy marzipan bonbon gummies chocolate cake gummi bears powder. Unerdwear.com tart halvah chocolate cake dragée liquorice. Sugar plum chocolate bar pastry liquorice dragée jelly powder. Jelly tootsie roll applicake caramels. Marzipan candy tootsie roll donut. Gummies ice cream macaroon applicake.</p> 
-      </div> 
-     </section> 
-     <section> 
-      <div class="container"> 
-       <h1>Chocolate, vanilla, and red velvet</h1> 
-       <p>Cupcake ipsum dolor sit amet lollipop. Macaroon candy cotton candy bear claw macaroon carrot cake pastry icing dessert. Cupcake pastry tart sesame snaps lollipop donut pie. Cookie apple pie toffee lemon drops jelly beans cheesecake sweet roll. Jelly-o soufflé donut candy canes wafer dragée sweet cheesecake. Macaroon caramels pie cookie gummi bears. Ice cream jelly-o toffee cookie gingerbread cookie. Soufflé fruitcake jelly-o jelly chupa chups jelly beans. Dragée marzipan pastry macaroon oat cake muffin soufflé topping liquorice. Jelly-o chocolate cake lollipop.</p> 
-       <p>Sugar plum muffin cookie pastry oat cake icing candy canes chocolate. Gummi bears chupa chups fruitcake dessert jelly. Muffin cookie ice cream soufflé pastry lollipop gingerbread sweet. Unerdwear.com bonbon candy marzipan bonbon gummies chocolate cake gummi bears powder. Unerdwear.com tart halvah chocolate cake dragée liquorice. Sugar plum chocolate bar pastry liquorice dragée jelly powder. Jelly tootsie roll applicake caramels. Marzipan candy tootsie roll donut. Gummies ice cream macaroon applicake.</p> 
-      </div> 
-     </section> 
-     <section class="color"> 
-      <div class="container"> 
-       <h1>Come to me!</h1> 
-       <p>Cupcake ipsum dolor sit amet lollipop. Macaroon candy cotton candy bear claw macaroon carrot cake pastry icing dessert. Cupcake pastry tart sesame snaps lollipop donut pie. Cookie apple pie toffee lemon drops jelly beans cheesecake sweet roll. Jelly-o soufflé donut candy canes wafer dragée sweet cheesecake. Macaroon caramels pie cookie gummi bears. Ice cream jelly-o toffee cookie gingerbread cookie. Soufflé fruitcake jelly-o jelly chupa chups jelly beans. Dragée marzipan pastry macaroon oat cake muffin soufflé topping liquorice. Jelly-o chocolate cake lollipop.</p> 
-       <p>Sugar plum muffin cookie pastry oat cake icing candy canes chocolate. Gummi bears chupa chups fruitcake dessert jelly. Muffin cookie ice cream soufflé pastry lollipop gingerbread sweet. Unerdwear.com bonbon candy marzipan bonbon gummies chocolate cake gummi bears powder. Unerdwear.com tart halvah chocolate cake dragée liquorice. Sugar plum chocolate bar pastry liquorice dragée jelly powder. Jelly tootsie roll applicake caramels. Marzipan candy tootsie roll donut. Gummies ice cream macaroon applicake.</p> 
-      </div> 
-     </section> 
-     <section> 
-      <div class="container"> 
-       <h1>Sugar rush, oh my...</h1> 
-       <p>Cupcake ipsum dolor sit amet lollipop. Macaroon candy cotton candy bear claw macaroon carrot cake pastry icing dessert. Cupcake pastry tart sesame snaps lollipop donut pie. Cookie apple pie toffee lemon drops jelly beans cheesecake sweet roll. Jelly-o soufflé donut candy canes wafer dragée sweet cheesecake. Macaroon caramels pie cookie gummi bears. Ice cream jelly-o toffee cookie gingerbread cookie. Soufflé fruitcake jelly-o jelly chupa chups jelly beans. Dragée marzipan pastry macaroon oat cake muffin soufflé topping liquorice. Jelly-o chocolate cake lollipop.</p> 
-       <p>Sugar plum muffin cookie pastry oat cake icing candy canes chocolate. Gummi bears chupa chups fruitcake dessert jelly. Muffin cookie ice cream soufflé pastry lollipop gingerbread sweet. Unerdwear.com bonbon candy marzipan bonbon gummies chocolate cake gummi bears powder. Unerdwear.com tart halvah chocolate cake dragée liquorice. Sugar plum chocolate bar pastry liquorice dragée jelly powder. Jelly tootsie roll applicake caramels. Marzipan candy tootsie roll donut. Gummies ice cream macaroon applicake.</p> 
-      </div> 
-     </section> 
-    </div> 
-   </div>
-   <!-- #main --> 
-   <footer> 
-    <div id="info-bar"> 
-     <div class="container clearfix"> 
-      <span class="all-tutorials"><a href="https://codepen.io/robgdev/pen/rqwWpr">My CodePen</a></span> 
-      <span class="back-to-tutorial"><a href="https://www.facebook.com/profile.php?id=100012607714717">Robert Baca</a></span> 
-     </div> 
-    </div>
-    <!-- /#top-bar --> 
-   </footer>
-   <!-- /footer --> 
-  </div>
-  <!-- /#wrapper -->
- </body>
-</html>
-<style type="text/css">
-    /* =Reset default browser CSS. Based on work by Eric Meyer: http://meyerweb.com/eric/tools/css/reset/index.html
--------------------------------------------------------------- */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
-  background: transparent;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  vertical-align: baseline; }
-
-body {
-  line-height: 1; }
-
-h1, h2, h3, h4, h5, h6 {
-  clear: both;
-  font-weight: normal; }
-
-ol, ul {
-  list-style: none; }
- 
-
-blockquote {
-  quotes: none; }
-
-blockquote:before, blockquote:after {
-  content: '';
-  content: none; }
-
-del {
-  text-decoration: line-through; }
-
-/* tables still need 'cellspacing="0"' in the markup */
-table {
-  border-collapse: collapse;
-  border-spacing: 0; }
-
-a img {
-  border: none; }
-
-/* =Scss Variables
--------------------------------------------------------------- */
-/* =Global
--------------------------------------------------------------- */
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
-
-body {
-  background-color: #3cb5f9;
-  color: #505050;
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 1.8; }
-
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1;
-  font-weight: 300; }
-
-a {
-  text-decoration: none;
-  color: #3cb5f9; }
-
-a:hover {
-  color: #0793e2; }
-
-/* =Template
--------------------------------------------------------------- */
-#wrapper {
-  width: 100%;
-  margin: 0 auto; }
-
-#main {
-  background-color: #fff;
-  padding-top: 150px; }
-
-.container {
-  width: 80%;
-  margin: 0 auto;
-  padding: 0 30px; }
-
-section {
-  padding: 60px 0; }
-  section h1 {
-    font-weight: 700;
-    margin-bottom: 10px; }
-  section p {
-    margin-bottom: 30px; }
-    section p:last-child {
-      margin-bottom: 0; }
-  section.color {
-    background-color: #3cb5f9;
-    color: white; }
-
-/* =Info Bar
--------------------------------------------------------------- */
-#info-bar {
-  background-color: #3cb5f9; }
-  #info-bar a {
-    color: white;
-    font-size: 14px;
-    text-transform: uppercase;
-    display: inline-block;
-    margin: 0;
-    padding: 10px; }
-    #info-bar a:hover {
-      background-color: #0793e2; }
-  #info-bar span.all-tutorials,
-  #info-bar span.back-to-tutorial {
-    display: block;
-    width: 50%; }
-  #info-bar span.all-tutorials {
-    float: left;
-    text-align: left; }
-  #info-bar span.back-to-tutorial {
-    float: right;
-    text-align: right; }
-
-/* =Header
--------------------------------------------------------------- */
-header {
-  width: 100%;
-  height: 150px;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  background-color: #0683c9;
-  -webkit-transition: height 0.6s;
-  -moz-transition: height 0.6s;
-  -ms-transition: height 0.6s;
-  -o-transition: height 0.6s;
-  transition: height 0.6s; }
-  header h1#logo {
-    display: inline-block;
-    height: 150px;
-    line-height: 150px;
-    float: left;
-    font-family: "Oswald", sans-serif;
-    font-size: 60px;
-    color: white;
-    font-weight: 400;
-    -webkit-transition: all 0.6s;
-    -moz-transition: all 0.6s;
-    -ms-transition: all 0.6s;
-    -o-transition: all 0.6s;
-    transition: all 0.6s; }
-  header nav {
-    display: inline-block;
-    float: right; }
-    header nav a {
-      line-height: 150px;
-      margin-left: 20px;
-      color: #9fdbfc;
-      font-weight: 700;
-      font-size: 18px;
-      -webkit-transition: all 0.6s;
-      -moz-transition: all 0.6s;
-      -ms-transition: all 0.6s;
-      -o-transition: all 0.6s;
-      transition: all 0.6s; }
-      header nav a:hover {
-        color: white; }
-  header.smaller {
-    height: 75px; }
-    header.smaller h1#logo {
-      width: 150px;
-      height: 75px;
-      line-height: 75px;
-      font-size: 30px; }
-    header.smaller nav a {
-      line-height: 75px; }
-
-/* =Footer
--------------------------------------------------------------- */
-/* =Extras
--------------------------------------------------------------- */
-.clearfix:after {
-  visibility: hidden;
-  display: block;
-  content: "";
-  clear: both;
-  height: 0; }
-
-/* =Media Queries
--------------------------------------------------------------- */
-@media all and (max-width: 660px) {
-  /* =Header
-  -------------------------------------------------------------- */
-  header h1#logo {
-    display: block;
-    float: none;
-    margin: 0 auto;
-    height: 100px;
-    line-height: 100px;
-    text-align: center; }
-  header nav {
-    display: block;
-    float: none;
-    height: 50px;
-    text-align: center;
-    margin: 0 auto; }
-    header nav a {
-      line-height: 50px;
-      margin: 0 10px; }
-  header.smaller {
-    height: 75px; }
-    header.smaller h1#logo {
-      height: 40px;
-      line-height: 40px;
-      font-size: 30px; }
-    header.smaller nav {
-      height: 35px; }
-      header.smaller nav a {
-        line-height: 35px; } }
-@media all and (max-width: 600px) {
-  .container {
-    width: 100%; }
-
-  #info-bar a {
-    display: block; }
-  #info-bar span.all-tutorials,
-  #info-bar span.back-to-tutorial {
-    width: 100%; }
-  #info-bar span.all-tutorials,
-  #info-bar span.back-to-tutorial {
-    float: none;
-    text-align: center; }
-  #info-bar span.all-tutorials {
-    border-bottom: solid 1px #0793e2; } }
-</style>
-<script type="text/javascript">
-    /*!
- * classie v1.0.0
- * class helper functions
- * from bonzo https://github.com/ded/bonzo
- * MIT license
- * 
- * classie.has( elem, 'my-class' ) -> true/false
- * classie.add( elem, 'my-new-class' )
- * classie.remove( elem, 'my-unwanted-class' )
- * classie.toggle( elem, 'my-class' )
- */
-
-/*jshint browser: true, strict: true, undef: true, unused: true */
-/*global define: false */
-(function(window) {
-
-    'use strict';
-
-    // class helper functions from bonzo https://github.com/ded/bonzo
-
-    function classReg(className) {
-        return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
-    }
-
-    // classList support for class management
-    // altho to be fair, the api sucks because it won't accept multiple classes at once
-    var hasClass, addClass, removeClass;
-
-    if ('classList' in document.documentElement) {
-        hasClass = function(elem, c) {
-            return elem.classList.contains(c);
-        };
-        addClass = function(elem, c) {
-            elem.classList.add(c);
-        };
-        removeClass = function(elem, c) {
-            elem.classList.remove(c);
-        };
-    } else {
-        hasClass = function(elem, c) {
-            return classReg(c).test(elem.className);
-        };
-        addClass = function(elem, c) {
-            if (!hasClass(elem, c)) {
-                elem.className = elem.className + ' ' + c;
-            }
-        };
-        removeClass = function(elem, c) {
-            elem.className = elem.className.replace(classReg(c), ' ');
-        };
-    }
-
-    function toggleClass(elem, c) {
-        var fn = hasClass(elem, c) ? removeClass : addClass;
-        fn(elem, c);
-    }
-
-    var classie = {
-        // full names
-        hasClass: hasClass,
-        addClass: addClass,
-        removeClass: removeClass,
-        toggleClass: toggleClass,
-        // short names
-        has: hasClass,
-        add: addClass,
-        remove: removeClass,
-        toggle: toggleClass
-    };
-
-    // transport
-    if (typeof define === 'function' && define.amd) {
-        // AMD
-        define(classie);
-    } else {
-        // browser global
-        window.classie = classie;
-    }
-
-})(window);
-</script>
-<?php /* ?>
-<!-- @extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
+      <!-- start slider -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- Slider -->
+            <div id="main-slider" class="main-slider flexslider">
+              <ul class="slides">
+                <li>
+                  <img src="{{ asset('template/img/slides/flexslider/1.jpg') }}" alt="" />
+                  <div class="flex-caption">
+                    <h3>Modern Design</h3>
+                    <p>Duis fermentum auctor ligula ac malesuada. Mauris et metus odio, in pulvinar urna</p>
+                    <a href="#" class="btn btn-theme">Learn More</a>
+                  </div>
+                </li>
+                <li>
+                  <img src="{{ asset('template/img/slides/flexslider/2.jpg') }}" alt="" />
+                  <div class="flex-caption">
+                    <h3>Fully Responsive</h3>
+                    <p>Sodales neque vitae justo sollicitudin aliquet sit amet diam curabitur sed fermentum.</p>
+                    <a href="#" class="btn btn-theme">Learn More</a>
+                  </div>
+                </li>
+                <li>
+                  <img src="{{ asset('template/img/slides/flexslider/3.jpg') }}" alt="" />
+                  <div class="flex-caption">
+                    <h3>Clean & Fast</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit donec mer lacinia.</p>
+                    <a href="#" class="btn btn-theme">Learn More</a>
+                  </div>
+                </li>
+              </ul>
             </div>
+            <!-- end slider -->
+          </div>
         </div>
-    </div>
-</div>
-@endsection -->
-<?php */ ?>
+      </div>
+
+
+    </section>
+    <section class="callaction">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="cta-text">
+              <h2>Awesome site template <span>corporate</span> business</h2>
+              <p> Etiam adipiscing, justo quis feugiat.Suspendisse eu erat quam. Vivamus porttitor eros quis nisi lacinia sed interdum</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="cta-btn">
+              <a href="#" class="btn btn-theme btn-lg">Grab it now <i class="fa fa-angle-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="text-center">
+              <h2>We use <span class="highlight">modern</span> infrastructure & technology</h2>
+              <p>Lorem ipsum dolor sit amet, ne duis posse mei, ut cum vero nominati. Sed graece aeterno consectetuer te. Cu duo tota deleniti, vis ea fuisset nostrum. Meliore inciderint qui ne. Suas cotidieque vel ut ei eros perpetua qui. Ponderum lobortis reformidans</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="box">
+                  <div class="aligncenter">
+                    <div class="icon">
+                      <i class="fa fa-desktop fa-5x"></i>
+                    </div>
+                    <h4>Fully responsive</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="box">
+                  <div class="aligncenter">
+                    <div class="icon">
+                      <i class="fa fa-file-code-o fa-5x"></i>
+                    </div>
+                    <h4>Fully responsive</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="box">
+                  <div class="aligncenter">
+                    <div class="icon">
+                      <i class="fa fa-paper-plane-o fa-5x"></i>
+                    </div>
+                    <h4>Fully responsive</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="box">
+                  <div class="aligncenter">
+                    <div class="icon">
+                      <i class="fa fa-cubes fa-5x"></i>
+                    </div>
+                    <h4>Fully responsive</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- divider -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="solidline">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end divider -->
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-sm-6 col-lg-6">
+                <h4>About our company</h4>
+                <p><strong>Meliore inciderint qui ne. Suas cotidieque vel ut lobortis reformidans duo</strong></p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae odit iste exercitationem praesentium deleniti nostrum laborum rem id nihil tempora. Adipisci ea commodi unde nam placeat cupiditate quasi a ducimus rem consequuntur ex eligendi minima
+                  voluptatem assumenda voluptas quidem sit maiores odio velit voluptate
+                </p>
+                <p>
+                  Mel explicari adipiscing consectetuer no, no mel apeirian scripserit repudiandae, ad assum mundi scribentur eam. Graecis offendit phaedrum eu his, eius ferri quidam eos ad, quis delenit vel ei. Alia modus facete te eos, eu tation appellantur per
+                </p>
+              </div>
+              <div class="col-sm-6 col-lg-6">
+                <h4>Projects</h4>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    40% Complete (success)
+                  </div>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                    20% Complete
+                  </div>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                    60% Complete (warning)
+                  </div>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                    80% Complete
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- divider -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="blankline">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end divider -->
+
+      <!-- parallax  -->
+      <div id="parallax1" class="parallax text-light text-center marginbot50" data-stellar-background-ratio="0.5">
+        <div class="container">
+          <div class="row appear stats">
+            <div class="col-xs-6 col-sm-3 col-md-3">
+              <div class="align-center color-white txt-shadow">
+                <div class="icon">
+                  <i class="fa fa-clock-o fa-5x"></i>
+                </div>
+                <strong id="counter-coffee" class="number">1232</strong><br />
+                <span class="text">Minutes</span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3">
+              <div class="align-center color-white txt-shadow">
+                <div class="icon">
+                  <i class="fa fa-music fa-5x"></i>
+                </div>
+                <strong id="counter-music" class="number">345</strong><br />
+                <span class="text">MP3 Songs</span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3">
+              <div class="align-center color-white txt-shadow">
+                <div class="icon">
+                  <i class="fa fa-coffee fa-5x"></i>
+                </div>
+                <strong id="counter-clock" class="number">501</strong><br />
+                <span class="text">Coffee Cups</span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3">
+              <div class="align-center color-white txt-shadow">
+                <div class="icon">
+                  <i class="fa fa-trophy fa-5x"></i>
+                </div>
+                <strong id="counter-heart" class="number">378</strong><br />
+                <span class="text">Awwards</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-sm-6 col-md-6">
+                <h4>Testimonials</h4>
+                <div class="testimonialslide clearfix flexslider">
+                  <ul class="slides">
+                    <li>
+                      <blockquote>
+                        Usu ei porro deleniti similique, per no consetetur necessitatibus. Ut sed augue docendi alienum, ex oblique scaevola inciderint pri, unum movet cu cum. Et cum impedit epicuri
+                      </blockquote>
+                      <h4>Daniel Dan <span>&#8213; MA System</span></h4>
+                    </li>
+                    <li>
+                      <blockquote>
+                        Usu ei porro deleniti similique, per no consetetur necessitatibus. Ut sed augue docendi alienum, ex oblique scaevola inciderint pri, unum movet cu cum. Et cum impedit epicuri
+                      </blockquote>
+                      <h4>Mark Wellbeck <span>&#8213; AC Software </span></h4>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-6">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#one" data-toggle="tab"><i class="icon-briefcase"></i> One</a></li>
+                  <li><a href="#two" data-toggle="tab">Two</a></li>
+                  <li><a href="#three" data-toggle="tab">Three</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="one">
+                    <p><img src="{{ asset('template/img/dummy1.jpg') }}" class="pull-left" alt="" />
+                      <strong>Augue iriure</strong> dolorum per ex, ne iisque ornatus veritus duo. Ex nobis integre lucilius sit, pri ea falli ludus appareat. Eum quodsi fuisset id, nostro patrioque qui id. Nominati eloquentiam in mea.
+                    </p>
+                    <p>
+                      No eum sanctus vituperata reformidans, dicant abhorreant ut pro. Duo id enim iisque praesent, amet intellegat per et, solet referrentur eum et.
+                    </p>
+                  </div>
+                  <div class="tab-pane" id="two">
+                    <p><img src="{{ asset('template/img/dummy1.jpg') }}" class="pull-right" alt="" /> Tale dolor mea ex, te enim assum suscipit cum, vix aliquid omittantur in. Duo eu cibo dolorum menandri, nam sumo dicit admodum ei. Ne mazim commune honestatis cum, mentitum phaedrum sit
+                      et.
+                    </p>
+                    <p>Lorem ipsum dolor sit amet, vel laoreet pertinacia at, nam ea ornatus ocurreret gubergren. Per facete graecis eu.</p>
+                  </div>
+                  <div class="tab-pane" id="three">
+                    <p>Lorem ipsum dolor sit amet, vel laoreet pertinacia at, nam ea ornatus ocurreret gubergren. Per facete graecis eu. </p>
+                    <p>
+                      Cu cum commodo regione definiebas. Cum ea eros laboramus, audire deseruisse his at, munere aeterno ut quo. Et ius doming causae philosophia, vitae bonorum intellegat usu cu.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- divider -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="solidline">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end divider -->
+
+      <!-- Portfolio Projects -->
+      <div class="container marginbot50">
+        <div class="row">
+          <div class="col-lg-12">
+            <h4 class="heading">Recent Works</h4>
+
+            <div id="filters-container" class="cbp-l-filters-button">
+              <div data-filter="*" class="cbp-filter-item-active cbp-filter-item">All
+                <div class="cbp-filter-counter"></div>
+              </div>
+              <div data-filter=".identity" class="cbp-filter-item">Identity
+                <div class="cbp-filter-counter"></div>
+              </div>
+              <div data-filter=".web-design" class="cbp-filter-item">Web Design
+                <div class="cbp-filter-counter"></div>
+              </div>
+              <div data-filter=".graphic" class="cbp-filter-item">Graphic
+                <div class="cbp-filter-counter"></div>
+              </div>
+              <div data-filter=".logo" class="cbp-filter-item">Logo
+                <div class="cbp-filter-counter"></div>
+              </div>
+            </div>
+
+
+            <div id="grid-container" class="cbp-l-grid-projects">
+              <ul>
+                <li class="cbp-item graphic">
+                  <div class="cbp-caption">
+                    <div class="cbp-caption-defaultWrap">
+                      <img src="{{ asset('template/img/works/1.jpg') }}" alt="" />
+                    </div>
+                    <div class="cbp-caption-activeWrap">
+                      <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+                          <a href="{{ asset('template/img/works/1big.jpg') }}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="Dashboard<br>by Paul Flavius Nechita">view larger</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cbp-l-grid-projects-title">Dashboard</div>
+                  <div class="cbp-l-grid-projects-desc">Web Design / Graphic</div>
+                </li>
+                <li class="cbp-item web-design logo">
+                  <div class="cbp-caption">
+                    <div class="cbp-caption-defaultWrap">
+                      <img src="{{ asset('template/img/works/2.jpg') }}" alt="" />
+                    </div>
+                    <div class="cbp-caption-activeWrap">
+                      <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+                          <a href="{{ asset('template/img/works/2big.jpg') }}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="World Clock Widget<br>by Paul Flavius Nechita">view larger</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cbp-l-grid-projects-title">World Clock Widget</div>
+                  <div class="cbp-l-grid-projects-desc">Logo / Web Design</div>
+                </li>
+                <li class="cbp-item graphic logo">
+                  <div class="cbp-caption">
+                    <div class="cbp-caption-defaultWrap">
+                      <img src="{{ asset('template/img/works/3.jpg') }}" alt="" />
+                    </div>
+                    <div class="cbp-caption-activeWrap">
+                      <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+
+                          <a href="http://vimeo.com/14912890" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="To-Do Dashboard<br>by Tiberiu Neamu">view video</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cbp-l-grid-projects-title">To-Do Dashboard</div>
+                  <div class="cbp-l-grid-projects-desc">Graphic / Logo</div>
+                </li>
+                <li class="cbp-item web-design graphic">
+                  <div class="cbp-caption">
+                    <div class="cbp-caption-defaultWrap">
+                      <img src="{{ asset('template/img/works/4.jpg') }}" alt="" />
+                    </div>
+                    <div class="cbp-caption-activeWrap">
+                      <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+
+                          <a href="{{ asset('template/img/works/4big.jpg') }}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="Events and  More<br>by Tiberiu Neamu">view larger</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cbp-l-grid-projects-title">Events and More</div>
+                  <div class="cbp-l-grid-projects-desc">Web Design / Graphic</div>
+                </li>
+                <li class="cbp-item identity web-design">
+                  <div class="cbp-caption">
+                    <div class="cbp-caption-defaultWrap">
+                      <img src="{{ asset('template/img/works/5.jpg') }}" alt="" />
+                    </div>
+                    <div class="cbp-caption-activeWrap">
+                      <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+
+                          <a href="{{ asset('template/img/works/5big.jpg') }}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="WhereTO App<br>by Tiberiu Neamu">view larger</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cbp-l-grid-projects-title">WhereTO App</div>
+                  <div class="cbp-l-grid-projects-desc">Web Design / Identity</div>
+                </li>
+                <li class="cbp-item identity web-design">
+                  <div class="cbp-caption">
+                    <div class="cbp-caption-defaultWrap">
+                      <img src="{{ asset('template/img/works/6.jpg') }}" alt="" />
+                    </div>
+                    <div class="cbp-caption-activeWrap">
+                      <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+
+                          <a href="{{ asset('template/img/works/6big.jpg') }}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="Ski * Buddy<br>by Tiberiu Neamu">view larger</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cbp-l-grid-projects-title">Ski * Buddy</div>
+                  <div class="cbp-l-grid-projects-desc">Identity / Web Design</div>
+                </li>
+                <li class="cbp-item graphic logo">
+                  <div class="cbp-caption">
+                    <div class="cbp-caption-defaultWrap">
+                      <img src="{{ asset('template/img/works/7.jpg') }}" alt="" />
+                    </div>
+                    <div class="cbp-caption-activeWrap">
+                      <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+
+                          <a href="{{ asset('template/img/works/7big.jpg') }}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="Seemple* Music for iPad<br>by Tiberiu Neamu">view larger</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cbp-l-grid-projects-title">Seemple* Music for iPad</div>
+                  <div class="cbp-l-grid-projects-desc">Graphic / Logo</div>
+                </li>
+                <li class="cbp-item graphic logo">
+                  <div class="cbp-caption">
+                    <div class="cbp-caption-defaultWrap">
+                      <img src="{{ asset('template/img/works/8.jpg') }}" alt="" />
+                    </div>
+                    <div class="cbp-caption-activeWrap">
+                      <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+
+                          <a href="{{ asset('template/img/works/8big.jpg') }}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="Seemple* Music for iPad<br>by Tiberiu Neamu">view larger</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cbp-l-grid-projects-title">Seemple* Music for iPad</div>
+                  <div class="cbp-l-grid-projects-desc">Graphic / Logo</div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="cbp-l-loadMore-button">
+              <a href="ajax/loadMore.html" class="cbp-l-loadMore-button-link">LOAD MORE</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <!-- divider -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="solidline">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end divider -->
+
+      <!-- clients -->
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-6 col-md-2 aligncenter client">
+            <img alt="logo" src="{{ asset('template/img/clients/logo1.png') }}" class="img-responsive" />
+          </div>
+
+          <div class="col-xs-6 col-md-2 aligncenter client">
+            <img alt="logo" src="{{ asset('template/img/clients/logo2.png') }}" class="img-responsive" />
+          </div>
+
+          <div class="col-xs-6 col-md-2 aligncenter client">
+            <img alt="logo" src="{{ asset('template/img/clients/logo3.png') }}" class="img-responsive" />
+          </div>
+
+          <div class="col-xs-6 col-md-2 aligncenter client">
+            <img alt="logo" src="{{ asset('template/img/clients/logo4.png') }}" class="img-responsive" />
+          </div>
+
+          <div class="col-xs-6 col-md-2 aligncenter client">
+            <img alt="logo" src="{{ asset('template/img/clients/logo5.png') }}" class="img-responsive" />
+          </div>
+          <div class="col-xs-6 col-md-2 aligncenter client">
+            <img alt="logo" src="{{ asset('template/img/clients/logo6.png') }}" class="img-responsive" />
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    @include('inc.footer');

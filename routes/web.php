@@ -37,13 +37,13 @@ Route::group(['middleware' => 'is-admin'], function () {
 	Route::get('auth/admin/posts','Admin\PostController@showposts');
 	Route::get('auth/admin/post/del/{id}','Admin\PostController@deletepost');
 
+	Route::get('auth/admin/category-tree-view',['uses'=>'Admin\CategoryController@manageCategory']);
+	Route::post('auth/admin/add-category',['as'=>'add.category','uses'=>'Admin\CategoryController@addCategory']);
 
-	Route::get('auth/admin/upload-image','Admin\FileController@index');
-	Route::post('auth/admin/upload-image',['as'=>'image.upload','uses'=>'Admin\FileController@uploadImages']);
 
-	Route::get('auth/admin/image-gallery', 'Admin\ImageGalleryController@index');
-	Route::post('auth/admin/image-gallery', 'Admin\ImageGalleryController@upload');
-	Route::delete('auth/admin/image-gallery/{id}', 'Admin\ImageGalleryController@destroy');
+	// Route::get('images-upload', 'Admin\PostController@imagesUpload');
+	Route::post('images-upload', 'Admin\PostController@imagesUploadPost')->name('images.upload');
+	Route::post('auth/admin/del/slide', 'Admin\PostController@delslide');
 });
 
 Route::group(['middleware' => 'is-subscriber'], function () {
@@ -67,5 +67,13 @@ Route::get('auth/user/edit/{id}','RegisterController@edit');
 Route::post('user/update/','RegisterController@update');
 
 Route::get('/post/{slug}', 'HomeController@showpost');
+
+
+Route::get('contact-us', 'ContactUSController@contactUS');
+Route::post('contact-us', ['as'=>'contactus.store','uses'=>'ContactUSController@contactUSPost']);
+
+Route::get('/404', function () {
+    return view('404');
+});
 Auth::routes();
 
