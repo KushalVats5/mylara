@@ -27,7 +27,6 @@
   @else
   @php $action = 'store' @endphp
   @endif
-
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12 gutter">
       <div class="container-inner">
@@ -68,6 +67,20 @@
                         @if ($errors->has('excerpt'))
                         <span style="color:red;">{{ $errors->first('excerpt') }}</span>
                         @endif                   
+                      </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <div class="col-sm-12">
+                        <label class="control-label">Upload Slider Images</label>
+                       <input type="file" id="uploadFile" name="uploadFile[]" multiple/>
+                        <div id="image_preview">
+                          @if(!empty($data['post_slider']))
+                          @foreach($data['post_slider'] as $key => $value)
+                          <img src="{{asset('images/sliders/'.$value)}}">
+                          <span class="delete-slider" data-id="{{$key}}" post-id="{{$data['id']}}" style="cursor: pointer;">X</span>
+                          @endforeach
+                        </div>
+                        @endif                  
                       </div>
                     </div>
                     <div class="form-group col-md-12">

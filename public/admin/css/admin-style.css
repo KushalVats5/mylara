@@ -106,6 +106,15 @@
     background-color: rgba(0, 0, 0, 0.7); 
 }
 
+#image_preview{
+      border: 1px solid black;
+      padding: 10px;
+    }
+    #image_preview img{
+      width: 200px;
+      padding: 5px;
+    }
+
 @keyframes animatetop {
     from {
         opacity: 0;
