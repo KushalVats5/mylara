@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('master.master')
 @section('content')
 <div class="user-dashboard users">
   <h1>
