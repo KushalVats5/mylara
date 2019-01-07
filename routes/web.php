@@ -37,7 +37,7 @@ Route::group(['middleware' => 'is-admin'], function () {
 	Route::get('auth/admin/posts','Admin\PostController@showposts');
 	Route::get('auth/admin/post/del/{id}','Admin\PostController@deletepost');
 
-	Route::get('auth/admin/category-tree-view',['uses'=>'Admin\CategoryController@manageCategory']);
+	Route::get('auth/admin/category',['uses'=>'Admin\CategoryController@manageCategory']);
 	Route::post('auth/admin/add-category',['as'=>'add.category','uses'=>'Admin\CategoryController@addCategory']);
 
 

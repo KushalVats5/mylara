@@ -5,7 +5,7 @@
     padding: 0;
     margin: 0;
     list-style: none;
-    background: #b32910;
+    background: #f5f5f5;
 }
 
 .sidebar-nav .metismenu {
@@ -17,22 +17,23 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    background: linear-gradient(178deg, #e12503 0%, #85060c 100%);
-    background: -webkit-linear-gradient(178deg, #e12503 0%, #85060c 100%);
+    /*background: linear-gradient(178deg, #337ab7 0%, #255c8c 100%);
+    background: -webkit-linear-gradient(178deg, #337ab7 0%, #255c8c 100%);*/
+    background: #ffff;
 }
 
 /* Handle */
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-  background: linear-gradient(178deg, #e12503 0%, #85060c 100%);
+  background: linear-gradient(178deg, #337ab7 0%, #255c8c 100%);
 }
 
 /* Handle on hover */
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar:hover {
-  background: linear-gradient(178deg, #e12503 0%, #85060c 100%);
+  background: linear-gradient(178deg, #337ab7 0%, #255c8c 100%);
 }
 /* Track */
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-  background: linear-gradient(178deg, #e12503 0%, #85060c 100%);
+  background: linear-gradient(178deg, #337ab7 0%, #255c8c 100%);
 }
 
 .sidebar-nav .metismenu li + li {
@@ -85,14 +86,17 @@
 .sidebar-nav .metismenu a:hover,
 .sidebar-nav .metismenu a:focus,
 .sidebar-nav .metismenu a:active {
-    color: #f8f9fa;
+    color: #fff;
     text-decoration: none;
-    background: #e12503;
+    background: #337ab7;
 }
 
 
 
-.sidebar-nav .metismenu li .icon-wrap:hover{
+.sidebar-nav .metismenu li .icon-wrap:active,
+.sidebar-nav .metismenu li .icon-wrap:focus,
+.sidebar-nav .metismenu li .icon-wrap:hover
+{
     color: #fff;    
 }
 .sidebar-nav .metismenu li .icon-wrap{

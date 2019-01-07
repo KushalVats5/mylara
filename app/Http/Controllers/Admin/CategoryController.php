@@ -16,7 +16,8 @@ class CategoryController extends Controller
     {
         $categories = Category::where('parent_id', '=', 0)->get();
         $allCategories = Category::pluck('title','id')->all();
-        return view('admin/categoryTreeview',compact('categories','allCategories'));
+        // return view('admin/categoryTreeview',compact('categories','allCategories'));
+        return view('master/category',compact('categories','allCategories'));
     }
 
     /**

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dashboard V.2 | jeweler - Material Admin Template</title>
+    <title>Dashboard V.2 | vtechinfosystems.com</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -50,6 +50,9 @@
 		============================================ -->
     <link rel="stylesheet" href="{{ URL::asset('master/css/calendar/fullcalendar.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('master/css/calendar/fullcalendar.print.min.css') }}">
+    <!-- summernote CSS
+        ============================================ -->
+    <link rel="stylesheet" href="{{ URL::asset('master/css/summernote/summernote.css') }}">
     <!-- modals CSS
         ============================================ -->
     <link rel="stylesheet" href="{{ URL::asset('master/css/modals.css') }}">
@@ -75,6 +78,11 @@
 </head>
 
 <body>
+@php 
+$fullPath = Request::url();
+$explode = explode('/', $fullPath);
+$lastSegment = end($explode);
+@endphp
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -88,7 +96,31 @@
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                        <li class="active">
+                        <li id="removable" class="{{$lastSegment=='admin' ? 'active' : '' }}">
+                            <a class="" title="Dashboard" href="{{ url('auth/admin') }}" aria-expanded="true"><i class="fa big-icon fa fa-home sub-icon-mg icon-wrap"></i> <span class="mini-click-non">Dashboard</span></a>                                
+                        </li>
+                        <li id="removable" class="{{$lastSegment=='users' ? 'active' : '' }}">
+                            <a class="has-arrow" href="{{ url('auth/admin/users') }}" aria-expanded="false"><i class="fa big-icon fa fa-users sub-icon-mg icon-wrap"></i> <span class="mini-click-non">Users</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li class="{{$lastSegment=='users' ? 'active' : '' }}"><a title="All User" href="{{ url('auth/admin/users') }}"><i class="fa fa-users sub-icon-mg sub-icon-mg" aria-hidden="true"></i><span class="mini-sub-pro">All User</span></a></li>
+                                <li class="{{$lastSegment=='adduser' ? 'active' : '' }}"><a title="Add User" href="{{ url('auth/admin/adduser') }}"><i class="fa fa-user sub-icon-mg sub-icon-mg" aria-hidden="true"></i><span class="mini-sub-pro">Add User</span></a></li>
+                            </ul>
+                        </li>
+                        <li id="removable" class="{{$lastSegment=='posts' ? 'active' : '' }}">
+                            <a class="has-arrow" href="{{ url('auth/admin/posts') }}" aria-expanded="false"><i class="fa big-icon fa-files-o sub-icon-mg icon-wrap"></i> <span class="mini-click-non">Posts</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li class="{{$lastSegment=='posts' ? 'active' : '' }}"><a title="All Post" href="{{ url('auth/admin/posts') }}"><i class="fa fa-files-o sub-icon-mg sub-icon-mg" aria-hidden="true"></i><span class="mini-sub-pro">All Post</span></a></li>
+                                <li class="{{$lastSegment=='post' ? 'active' : '' }}"><a title="Add Post" href="{{ url('auth/admin/add/post') }}"><i class="fa fa-files-o sub-icon-mg sub-icon-mg" aria-hidden="true"></i><span class="mini-sub-pro">Add Post</span></a></li>
+                            </ul>
+                        </li>
+                        <li id="removable" class="{{$lastSegment=='posts' ? 'active' : '' }}">
+                            <a class="has-arrow" href="{{ url('auth/admin/posts') }}" aria-expanded="false"><i class="fa big-icon fa-files-o sub-icon-mg icon-wrap"></i> <span class="mini-click-non">Pages</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li class="{{$lastSegment=='posts' ? 'active' : '' }}"><a title="All Page" href="{{ url('auth/admin/posts') }}"><i class="fa fa-files-o sub-icon-mg" aria-hidden="true"></i><span class="mini-sub-pro">All Page</span></a></li>
+                                <li class="{{$lastSegment=='page' ? 'active' : '' }}"><a title="Add Page" href="{{ url('auth/admin/add/page') }}"><i class="fa fa-files-o sub-icon-mg" aria-hidden="true"></i><span class="mini-sub-pro">Add Page</span></a></li>
+                            </ul>
+                        </li>
+                       <!--  <li class="">
                             <a class="has-arrow" href="{{ url('auth/admin') }}">
 								   <i class="fa big-icon fa-home icon-wrap"></i>
 								   <span class="mini-click-non">Ecommerce</span>
@@ -187,7 +219,7 @@
                                 <li><a title="Password Recovery" href="password-recovery.html"><i class="fa fa-wheelchair sub-icon-mg" aria-hidden="true"></i><span class="mini-sub-pro">Password Recovery</span></a></li>
                             </ul>
                         </li>
-                        <li><a title="Landing Page" href="#" aria-expanded="false"><i class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span class="mini-click-non">Landing Page</span></a></li>
+                        <li><a title="Landing Page" href="#" aria-expanded="false"><i class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span class="mini-click-non">Landing Page</span></a></li> -->
                     </ul>
                 </nav>
             </div>
@@ -932,7 +964,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">Home</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">Dashboard V.2</span>
+                                            <li><span class="bread-blod">{{ ucwords($lastSegment) }}</span>
                                             </li>
                                         </ul>
                                     </div>

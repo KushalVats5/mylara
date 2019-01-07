@@ -5,6 +5,12 @@
 //     dateFormat: 'yy-mm-dd'
 // });
 
+// Close alert box 
+ $('.alert-data-dismiss').click(function(){
+         $('.modal-main.alert-box').removeClass('in');
+         $('.modal-main.alert-box').hide('slow');
+      });
+
 $('#sandbox-container input').on('show', function(e){
     console.debug('show', e.date, $(this).data('stickyDate'));
     
@@ -55,10 +61,7 @@ $('#sandbox-container input').on('hide', function(e){
           $('p').html('Checkbox is checked: <b>False</b>');*/
       });
 
-      $('.alert-data-dismiss').click(function(){
-         $('.modal-main.alert-box').removeClass('in');
-         $('.modal-main.alert-box').hide('slow');
-      });
+     
 
 
 // File Preview on click
@@ -147,23 +150,23 @@ $('#tree1').treed();
 
 
 // add slider privew js
-  $("#uploadFile").change(function(){
+  /*$("#uploadFile").change(function(){
      $('#image_preview').html("");
      var total_file=document.getElementById("uploadFile").files.length;
      for(var i=0;i<total_file;i++)
      {
-      $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
+      $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' width='200' height='134'>");
      }
-  });
+  });*/
 
   // add slider privew js
   $(document).on('click','.delete-slider', function(){
-    var key = $(this).attr('data-id');
+    var key     = $(this).attr('data-id');
     var post_id = $(this).attr('post-id');
-    alert(key);
+    var url     = $(this).attr('data-url');
         $.ajax({
             /* the route pointing to the post function */
-            url: "{{ url('auth/admin/del/slide') }}",
+            url: url,
             type: 'POST',
             encode  : true,
             /* send the csrf-token and the input to the controller */
@@ -172,9 +175,45 @@ $('#tree1').treed();
             dataType: 'JSON',
             /* remind that 'data' is the response of the AjaxController */
             success: function (data) { 
-               alert(data)
-                // $('.modal-main.alert-box').show('slow');
-                // $('.alert-message').html('Status changed successfully !!!');
+                if(data.success){
+                  $('.modal-main.alert-box').addClass('in');
+                  $('.modal-main.alert-box').show('slow');
+                  $('.alert-message').html('<h2>Success!</h2><p>'+data.success+'</p>');
+                  $('.postslide'+data.index).remove();
+                }else{
+                  $('.modal-main.alert-box').addClass('in');
+                  $('.modal-main.alert-box').show('slow');
+                  $('.alert-message').html('<h2>Success!</h2><p>Images not deleted Successfully !!! </p>');
+                }
             }
         }); 
   });
+
+
+
+  $(document).ready(function() {
+  if (window.File && window.FileList && window.FileReader) {
+    $("#uploadFile").on("change", function(e) {
+      var files = e.target.files,
+        filesLength = files.length;
+      for (var i = 0; i < filesLength; i++) {
+        var f = files[i]
+        var fileReader = new FileReader();
+        fileReader.onload = (function(e) {
+          var file = e.target;
+          // $("<span class=\"pip\">" +
+          //   "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+          //   "<br/><span class=\"remove\">Remove image</span>" +
+          //   "</span>").insertAfter("#uploadFile");
+          $('<div class="postslide-item postslide pip"><div class="slide-img"><img src="'+ e.target.result +'" alt="'+ file.name + '" title="'+ file.name + '"></div><div class="slide-img-del"><span class="remove" data-url="http://localhost/test-lara/public/auth/admin/del/slide" style="cursor: pointer;">X</span></div></div>').insertAfter("#image_preview");
+          $(".remove").click(function(){
+            $(this).parent().parent(".pip").remove();
+          });
+        });
+        fileReader.readAsDataURL(f);
+      }
+    });
+  } else {
+    alert("Your browser doesn't support to File API")
+  }
+});

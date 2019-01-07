@@ -11,7 +11,7 @@
         </div>
 </div>
 <!-- Models -->
-<div id="DangerModalhdbgcl" class="modal modal-adminpro-general FullColor-popup-DangerModal fade modal-main alert-box" role="dialog">
+<!-- <div id="DangerModalhdbgcl" class="modal modal-adminpro-general FullColor-popup-DangerModal bg-color-1 fade modal-main alert-box" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header header-color-modal bg-color-4">
@@ -26,12 +26,31 @@
             </div>
             <div class="modal-footer">
                 <a class="alert-data-dismiss" data-dismiss="modal" href="#">Cancel</a>
-                <!-- <a href="#">Process</a> -->
             </div>
         </div>
     </div>
-</div>
- <!-- jquery
+</div> -->
+<div id="PrimaryModalhdbgcl" class="modal-main alert-box modal modal-adminpro-general default-popup-PrimaryModal fade in" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header header-color-modal bg-color-1">
+                    <h4 class="modal-title">BG Color Header Modal</h4>
+                    <div class="modal-close-area modal-close-df">
+                        <a class="close alert-data-dismiss" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <i class="fa fa-check modal-check-pro"></i>
+                  <div class="alert-message"></div>
+                </div>
+                <div class="modal-footer">
+                    <a class="alert-data-dismiss" data-dismiss="modal" href="javascript:;">Cancel</a>
+                    <!-- <a href="#">Process</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- jquery
         ============================================ -->
     <script src="{{ URL::asset('master/js/vendor/jquery-1.11.3.min.js') }}"></script>
     <!-- bootstrap JS
@@ -63,6 +82,12 @@
         ============================================ -->
     <script src="{{ URL::asset('master/js/metisMenu/metisMenu.min.js') }}"></script>
     <script src="{{ URL::asset('master/js/metisMenu/metisMenu-active.js') }}"></script>
+
+    <!-- summernote JS
+        ============================================ -->
+    <script src="{{ URL::asset('master/js/summernote/summernote.min.js') }}"></script>
+    <script src="{{ URL::asset('master/js/summernote/summernote-active.js') }}"></script>
+
     <!-- morrisjs JS
         ============================================ -->
     <script src="{{ URL::asset('master/js/morrisjs/raphael-min.js') }}"></script>

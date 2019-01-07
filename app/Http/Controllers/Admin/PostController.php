@@ -7,10 +7,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Category;
 use App\User;
 use App\Post;
 Use Redirect;
 use Helper;
+use Session;
 use DB;
 use File;
 
@@ -21,8 +23,7 @@ class PostController extends Controller
     */
     public function index()
     {
-        $products = Post::all();
-
+        $products       = Post::all();
         return view('viewproducts', ['allProducts' => $products]);
     }
 
@@ -31,6 +32,8 @@ class PostController extends Controller
     */
     public function create($type, $id=false)
     {	
+      $categories     = Category::where('parent_id', '=', 0)->get();
+      $allCategories  = Category::pluck('title','id')->all();
     	if($id){
 			$postData = Post::where('id', $id)
 					    ->where('post_type', $type)
@@ -64,7 +67,9 @@ class PostController extends Controller
     					'keywords' 	   => false
     					);
     	}
-    	return view('admin/add-post')->with('data', $data);
+      // return view('admin/add-post')->with('data', $data);
+    	// return view('master/add-post')->with('data', $data);
+      return view('master/add-post', ['data' => $data, 'categories' => $allCategories]);
     }
 
     /**
@@ -79,7 +84,6 @@ class PostController extends Controller
       	$customMessages = [
           'title.required'      => 'Title field is required.',
       	];
-     
       	$validator = Validator::make($request->all(), $rules, $customMessages);
       	if ($validator->fails()) {
           // send back to the page with the input data and errors
@@ -98,17 +102,18 @@ class PostController extends Controller
         
 
         $post = Post::create([
-          'title' 			=> $request->title,
-          'slug'      => $slug,          
-          'user_id'      => Auth::user()->id,          
-          'post_type' 		=> $request->post_type,
-          'featured_image' 	=> $featured_image,
-          'content' 		=> htmlspecialchars($request->content),
-          'excerpt'			=> htmlspecialchars($request->excerpt),
+          'title' 			   => $request->title,
+          'slug'           => $slug,          
+          'user_id'        => Auth::user()->id,          
+          'post_type' 		 => $request->post_type,
+          'featured_image' => $featured_image,
+          'content' 		   => htmlspecialchars($request->content),
+          'excerpt'			   => htmlspecialchars($request->excerpt),
         ]);
 
          $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
         Helper::add_post_meta( $post->id, '_meta_tags',  serialize($metaTags)); 
+        if($request->hasFile('uploadFile')){
         $sliders = array();
         foreach ($request->file('uploadFile') as $key => $value) {
             $imageName = time(). $key . '.' . $value->getClientOriginalExtension();
@@ -116,7 +121,7 @@ class PostController extends Controller
             $value->move(public_path('images/sliders'), $imageName);
         }
         Helper::add_post_meta( $post->id, '_post_slider',  serialize($sliders));
-		
+		}
         return redirect()->back()->with('success', 'Record successfully added!');
     }
 
@@ -131,7 +136,8 @@ class PostController extends Controller
       	$customMessages = [
           'title.required'      => 'Title field is required.',
       	];
-     
+        
+       
       	$validator = Validator::make($request->all(), $rules, $customMessages);
       	if ($validator->fails()) {
           // send back to the page with the input data and errors
@@ -139,7 +145,7 @@ class PostController extends Controller
       	}
 
       	 // Get avatar from database 
-		if ($request->hasFile('featured_image')) {
+		    if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');
             $featured_image = Helper::upload_featured_image( $image);
           }else{
@@ -157,10 +163,30 @@ class PostController extends Controller
       	]);
         
 
-	$metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
-        Helper::update_post_meta( $id, '_meta_tags',  serialize($metaTags));
+	     $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
+        
+        $post_slider  = Helper::get_post_meta( $id, '_post_slider');
 
-		
+        $post_slider  = unserialize($post_slider);
+        if($request->hasFile('uploadFile')){
+           $sliders = array();
+            foreach ($request->file('uploadFile') as $key => $value) {
+                $imageName = time(). $key . '.' . $value->getClientOriginalExtension();
+                $sliders[] = $imageName;
+                $value->move(public_path('images/sliders'), $imageName);
+            }
+          if(!empty($post_slider)){
+            $post_slider      =  array_merge($post_slider, $sliders );
+            Helper::update_post_meta( $id, '_post_slider',  serialize($post_slider));
+          }else{
+            $post_slider = $sliders;
+            Helper::add_post_meta( $id, '_post_slider',  serialize($post_slider));
+          }
+         
+        }
+        Helper::update_post_meta( $id, '_meta_tags',  serialize($metaTags));
+		   
+        
         return redirect()->back()->with('success', 'Record successfully updated!');
     }
 
@@ -170,7 +196,8 @@ class PostController extends Controller
 	public function showposts(){
 	    // $posts = Post::all();
 	    $posts = Post::paginate(10);
-      	return view('admin/posts',compact('posts',$posts));
+        // return view('admin/posts',compact('posts',$posts));
+      	return view('master/posts',compact('posts',$posts));
 	}
 
 
@@ -195,28 +222,17 @@ class PostController extends Controller
       
       $post_slider  = Helper::get_post_meta( $request->post_id, '_post_slider');
       $post_slider = unserialize($post_slider);
-      unset($post_slider[$request->post_id]);
-      print_r(array_values($post_slider));
-      // return response()->json(['success'=>'Images Uploaded Successfully.']);
+      $index = $request->key;
+      $image_path = public_path('images/sliders/'.$post_slider[$index]);
+      if(file_exists($image_path)) {
+          @unlink($image_path);
+      }
+
+      unset($post_slider[$index]);
+      $post_slider = array_values($post_slider);
+      $post_slider  = Helper::update_post_meta( $request->post_id, '_post_slider', serialize($post_slider));
+
+      return response()->json(['success'=>'Image deleted Successfully !!!', 'index'=>$index]);
     }
     
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    /*public function imagesUploadPost(Request $request)
-    {
-        request()->validate([
-            'uploadFile' => 'required',
-        ]);
-
-        foreach ($request->file('uploadFile') as $key => $value) {
-            $imageName = time(). $key . '.' . $value->getClientOriginalExtension();
-            $value->move(public_path('images/sliders'), $imageName);
-        }
-
-        return response()->json(['success'=>'Images Uploaded Successfully.']);
-    }*/
 }

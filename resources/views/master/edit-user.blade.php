@@ -40,7 +40,7 @@
                     <input id="featured_image" name="avatar" type="file" class="file-loading" style="margin-left: 15%; display: none;">
                   </div> 
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                   <div class="panel-heading">
                     <h4 class="panel-title">User Info</h4>
                   </div>
@@ -83,7 +83,7 @@
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                   <div class="panel-heading">
                     <h4 class="panel-title">Address info</h4>
                   </div>
@@ -122,7 +122,7 @@
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                   <div class="panel-heading">
                     <h4 class="panel-title">Contact info</h4>
                   </div>
@@ -145,7 +145,7 @@
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                   <div class="panel-heading">
                     <h4 class="panel-title">Generate Password</h4>
                   </div>
