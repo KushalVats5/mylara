@@ -32,8 +32,8 @@ class PostController extends Controller
     */
     public function create($type, $id=false)
     {	
-      $postCats      = Category::with('posts')->get();
-      dd($postCats);
+      $postCats       = Category::with('posts')->get();
+      $postCats       = json_decode($postCats);
       $categories     = Category::where('parent_id', '=', 0)->get();
       $allCategories  = Category::pluck('title','id')->all();
     	if($id){

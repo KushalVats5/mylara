@@ -111,9 +111,9 @@
                         </div>
                       </div>
                     @endforeach
-                    {{dd($postCats)}}
+                    
                     @foreach($postCats as $key => $cat)
-                    {{$cat}}
+                    {{$cat->title}}
                     @endforeach
                    
                   </div>
