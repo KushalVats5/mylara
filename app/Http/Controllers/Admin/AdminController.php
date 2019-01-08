@@ -22,7 +22,8 @@ class AdminController extends Controller
 {
     public function index()
     {
-      return view('admin/index');
+      // return view('admin/index');
+      return view('master/login');
     }
 
     public function adminLogin(Request $request){
@@ -57,11 +58,13 @@ class AdminController extends Controller
     public function dashboard()
     {
       // File::allFiles(public_path());
-      return view('admin/dashboard');
+      // return view('admin/dashboard');
+      return view('master/dashboard');
     }
 
     public function adduser(){
-        return view('admin/add-user');
+        // return view('admin/add-user');
+        return view('master/add-user');
     }
 
     public function saveuser( Request $request ){
@@ -153,7 +156,8 @@ class AdminController extends Controller
     public function userlist(Request $request)
     { 
       $users = User::all();
-      return view('admin/users',compact('users',$users));
+      // return view('admin/users',compact('users',$users));
+      return view('master/users',compact('users',$users));
     }
 
     public function isactive(Request $request)
@@ -173,7 +177,8 @@ class AdminController extends Controller
     
     public function edituser($id){
    		$user = User::find($id);
-      return view('admin/edit-user', compact('user'));
+      // return view('admin/edit-user', compact('user'));
+      return view('master/edit-user', compact('user'));
    	}
 
     /**

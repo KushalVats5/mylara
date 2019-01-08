@@ -1,8 +1,18 @@
 <?php
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+namespace App\Http\Controllers\Admin;
 use App\ImageGallery;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Auth;
+use App\User;
+use Hash;
+Use Redirect;
+use Session;
+use DB;
+use File;
 
 class ImageGalleryController extends Controller
 {

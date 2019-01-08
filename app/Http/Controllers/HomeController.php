@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Post;
 class HomeController extends Controller
 {
     /**
@@ -24,5 +24,13 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    /**
+    * Show post
+    */    
+    public function showpost($slug){
+        $post = Post::where('slug', $slug)->first();
+        return view('single-post')->with('post', $post);
     }
 }
