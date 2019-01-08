@@ -32,6 +32,8 @@ class PostController extends Controller
     */
     public function create($type, $id=false)
     {	
+      $postCats      = Category::with('posts')->get();
+      dd($postCats);
       $categories     = Category::where('parent_id', '=', 0)->get();
       $allCategories  = Category::pluck('title','id')->all();
     	if($id){
@@ -69,7 +71,7 @@ class PostController extends Controller
     	}
       // return view('admin/add-post')->with('data', $data);
     	// return view('master/add-post')->with('data', $data);
-      return view('master/add-post', ['data' => $data, 'categories' => $allCategories]);
+      return view('master/add-post', ['data' => $data, 'categories' => $allCategories, 'postCats'=>$postCats]);
     }
 
     /**
@@ -94,7 +96,6 @@ class PostController extends Controller
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');
             $featured_image = Helper::upload_featured_image( $image);
-            echo $featured_image;
           }else{
             $featured_image = null;
         }
@@ -110,7 +111,8 @@ class PostController extends Controller
           'content' 		   => htmlspecialchars($request->content),
           'excerpt'			   => htmlspecialchars($request->excerpt),
         ]);
-
+        // dd($request->category);
+        $post->categories()->attach($request->category);
          $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
         Helper::add_post_meta( $post->id, '_meta_tags',  serialize($metaTags)); 
         if($request->hasFile('uploadFile')){

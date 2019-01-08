@@ -33,38 +33,39 @@ $('#sandbox-container input').on('hide', function(e){
     }
 });
 
-       $(document).on('click','.chkSelect', function(){
-        var isChecked = $(this).is(':checked');
-        var st = $(this).attr('data-value');
-        var id = $(this).attr('data-id');
-        var url = $(this).attr('data-url');
-         $.ajax({
-            /* the route pointing to the post function */
-            url: url,
-            type: 'POST',
-            encode  : true,
-            /* send the csrf-token and the input to the controller */
-            // data: {_token: CSRF_TOKEN, message:$(".getinfo").val()},
-            data: {action: 'change_user_status', id:id, status:st},
-            dataType: 'JSON',
-            /* remind that 'data' is the response of the AjaxController */
-            success: function (data) { 
-                // $(".writeinfo").append(data.msg); 
-                $('.modal-main.alert-box').addClass('in');
-                $('.modal-main.alert-box').show('slow');
-                $('.alert-message').html('<h2>Success!</h2><p>Status changed successfully !!!</p>');
-            }
-        }); 
-        /*if(isChecked)
-          $('p').html('Checkbox is checked: <b>True</b>');
-        else
-          $('p').html('Checkbox is checked: <b>False</b>');*/
-      });
+// Change User status
+$(document).on('click','.chkSelect', function(){
+var isChecked = $(this).is(':checked');
+var st = $(this).attr('data-value');
+var id = $(this).attr('data-id');
+var url = $(this).attr('data-url');
+ $.ajax({
+    /* the route pointing to the post function */
+    url: url,
+    type: 'POST',
+    encode  : true,
+    /* send the csrf-token and the input to the controller */
+    // data: {_token: CSRF_TOKEN, message:$(".getinfo").val()},
+    data: {action: 'change_user_status', id:id, status:st},
+    dataType: 'JSON',
+    /* remind that 'data' is the response of the AjaxController */
+    success: function (data) { 
+        // $(".writeinfo").append(data.msg); 
+        $('.modal-main.alert-box').addClass('in');
+        $('.modal-main.alert-box').show('slow');
+        $('.alert-message').html('<h2>Success!</h2><p>Status changed successfully !!!</p>');
+    }
+}); 
+/*if(isChecked)
+  $('p').html('Checkbox is checked: <b>True</b>');
+else
+  $('p').html('Checkbox is checked: <b>False</b>');*/
+});
 
      
 
 
-// File Preview on click
+// Featured image File Preview on click
   jQuery(document).ready(function(){
   jQuery('.file-input').click(function(){
     jQuery('#featured_image').click().change(function(){
@@ -73,6 +74,7 @@ $('#sandbox-container input').on('hide', function(e){
   });
 });
 
+// Create function Featured image File Preview
 //  Change src of file input privew
 function readURL(input) {
 
@@ -86,9 +88,6 @@ function readURL(input) {
     reader.readAsDataURL(input.files[0]);
   }
 }
-
-
-
 
 // Category treeview.js
 $.fn.extend({
@@ -148,18 +147,7 @@ $.fn.extend({
 $('#tree1').treed();
 
 
-
-// add slider privew js
-  /*$("#uploadFile").change(function(){
-     $('#image_preview').html("");
-     var total_file=document.getElementById("uploadFile").files.length;
-     for(var i=0;i<total_file;i++)
-     {
-      $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' width='200' height='134'>");
-     }
-  });*/
-
-  // add slider privew js
+// Delete slider image from tabke & folder
   $(document).on('click','.delete-slider', function(){
     var key     = $(this).attr('data-id');
     var post_id = $(this).attr('post-id');
@@ -190,7 +178,7 @@ $('#tree1').treed();
   });
 
 
-
+// Upload slider image with preview & remove icon
   $(document).ready(function() {
   if (window.File && window.FileList && window.FileReader) {
     $("#uploadFile").on("change", function(e) {

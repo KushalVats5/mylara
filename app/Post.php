@@ -16,6 +16,10 @@ class Post extends Model
        'featured_image',
     ];
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'post_category');
+    }
     public function author() {
       return $this->belongsTo('App\User', 'user_id');
     }
@@ -24,12 +28,13 @@ class Post extends Model
       return $this->belongsTo('App\Media', 'media_id');
     }
 
-    public function categories() {
-      return $this->belongsToMany('App\Category');
-
-      // Or more specifically
-      return $this->belongsToMany('App\Category', 'post_category', 'id', 'category_id');
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
     }
-
+   /* public function category() {
+        return $this->belongsTo(Category::class); // don't forget to add your full namespace
+    }
+*/
     
 }
