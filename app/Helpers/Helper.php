@@ -123,6 +123,14 @@ class Helper {
     }
 
     /**
+    * Delete all post meta by post id when post delete
+    */
+    static function delete_all_post_meta( $post_id )
+    {
+        return  DB::table('postmetas')->delete($post_id);
+    }
+
+    /**
     * Upload Featured Image
     */
     static function upload_featured_image( $image )

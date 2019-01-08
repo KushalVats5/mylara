@@ -24,21 +24,36 @@ class PostController extends Controller
     */
     public function index()
     {
-        $products       = Post::all();
-        return view('viewproducts', ['allProducts' => $products]);
+        // $posts = Post::paginate(10);
+        $posts = Post::where('post_type', '!=', 'page')->paginate(10);
+        // return view('admin/posts',compact('posts',$posts));
+        return view('master/posts',compact('posts',$posts));
+    }
+
+    /**
+    * Display only pages
+    */
+    public function pages()
+    {
+        // $posts = Post::paginate(10);
+        $posts = Post::where('post_type', '=', 'page')->paginate(10);
+        // return view('admin/posts',compact('posts',$posts));
+        return view('master/posts',compact('posts',$posts));
     }
 
     /**
     * Show create post view
     */
-    public function create($type, $id=false)
+    public function create($id=false)
     {	
+      $type = request()->segment(4);
       $postCats       = CategoryPost::where('post_id',$id)->get();
       // $postCats = Category::find(1);
       $postCats       = json_decode($postCats);
       // dd($postCats);
       $categories     = Category::where('parent_id', '=', 0)->get();
       $allCategories  = Category::pluck('title','id')->all();
+
     	if($id){
 			$postData = Post::where('id', $id)
 					    ->where('post_type', $type)
@@ -74,7 +89,8 @@ class PostController extends Controller
     	}
       // return view('admin/add-post')->with('data', $data);
     	// return view('master/add-post')->with('data', $data);
-      return view('master/add-post', ['data' => $data, 'categories' => $allCategories, 'postCats'=>$postCats]);
+      // return view('master/add-post', ['data' => $data, 'categories' => $allCategories, 'postCats'=>$postCats]);
+      return view('master/add-post', compact('data','categories','allCategories', 'postCats'));
     }
 
     /**
@@ -117,7 +133,9 @@ class PostController extends Controller
         // dd($request->category);
         // dd($post);
         $post->categories()->attach($request->category);
+
         $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
+
         Helper::add_post_meta( $post->id, '_meta_tags',  serialize($metaTags)); 
 
         if($request->hasFile('uploadFile')){
@@ -170,9 +188,6 @@ class PostController extends Controller
       	]);
         
 
-	     $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
-        
-
        // check _post_slider  exists or not
         $post_slider    = Helper::get_post_meta( $id, '_post_slider');
         $post_slider  = unserialize($post_slider);
@@ -195,7 +210,6 @@ class PostController extends Controller
         // dd($post);
         $post = Post::find($id);
         $postCats       = CategoryPost::where('post_id',$id)->select('category_id')->get();
-      // $postCats = Category::find(1);
         $postCats       = json_decode($postCats);
         $cats = array();
         foreach ($postCats as $key => $value) {
@@ -203,8 +217,10 @@ class PostController extends Controller
         }
         $postCats     = $post->categories()->detach($cats);
         $post->categories()->attach($request->category);
+        
         // check _meta_tags  exists or not
         $_meta_tags     = Helper::get_post_meta( $id, '_meta_tags');
+        $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
         if($_meta_tags){
           Helper::update_post_meta( $id, '_meta_tags',  serialize($metaTags));
         }else{
@@ -215,16 +231,7 @@ class PostController extends Controller
         return redirect()->back()->with('success', 'Record successfully updated!');
     }
 
-	/**
-    * Show post
-    */    
-	public function showposts(){
-	    // $posts = Post::all();
-	    $posts = Post::paginate(10);
-        // return view('admin/posts',compact('posts',$posts));
-      	return view('master/posts',compact('posts',$posts));
-	}
-
+	
 
 	/**
     * Delete post from posts table 
@@ -233,6 +240,7 @@ class PostController extends Controller
     { 
       $user = Post::find($id);    
       $user->delete();
+      Helper::delete_all_post_meta($id);
       Session::flash('success', "Record deleted successfully!!!");
       return Redirect::back();
       // return Redirect::back()->with(['success', 'User deleted successfully!!!']);

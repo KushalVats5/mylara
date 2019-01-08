@@ -4,7 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
+use App\Category;
+use App\CategoryPost;
+use App\User;
+use App\Post;
+Use Redirect;
+use Helper;
+use Session;
+use DB;
+use File;
 class PageController extends Controller
 {
      /**
@@ -14,7 +25,9 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        // show only pages
+        // $posts = Post::paginate(10);
+        
     }
 
     /**
@@ -32,13 +45,10 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request) {
-    {
-        $game->title = $request->title;
-	    $str = strtolower($request->title);
-	    $game->slug = preg_replace('/\s+/', '-', $str);
-	    $game->save();
-    }
+    // public function store(Request $request) {
+    // {
+        
+    // }
 
     /**
      * Display the specified resource.
@@ -48,8 +58,7 @@ class PageController extends Controller
      */
     public function show($slug)
     {
-        $game = Game::where('slug', $slug)->first();
-    	return view('game.show')->with('game', $game);
+        
     }
 
     /**

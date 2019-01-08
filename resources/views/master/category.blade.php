@@ -37,16 +37,20 @@
                 <div class="row">
                   <div class="col-md-6">
                     <h3>Category List</h3>
-                    <ul id="tree1">
+                    <div id="tree1">
                       @foreach($categories as $category)
-                      <li>
-                        {{ $category->title }}
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="i-checks pull-left">
+                          <label>
+                        <input type="checkbox" name="category[]" value="{{ $category->id }}"> <i></i>  {{ $category->title }}
+                        </label>
+                        </div>
                         @if(count($category->childs))
                         @include('master/manageChild',['childs' => $category->childs])
                         @endif
-                      </li>
+                      </div>
                       @endforeach
-                    </ul>
+                    </div>
                   </div>
                   <div class="col-md-6">
                     <h3>Add New Category</h3>

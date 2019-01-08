@@ -3352,6 +3352,10 @@ img.img-circle.post-featured-image.file-input {
     width: 200px;
     height: 134px;
     padding-bottom: 10px;
+    border: 1px solid #9eb1c1;
+}
+.postslide-item.postslide {
+    margin-left: 6%;
 }
 .slide-img-del {
     display: inline-block;

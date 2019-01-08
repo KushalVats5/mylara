@@ -99,6 +99,10 @@ $lastSegment = end($explode);
                         <li id="removable" class="{{$lastSegment=='admin' ? 'active' : '' }}">
                             <a class="" title="Dashboard" href="{{ url('auth/admin') }}" aria-expanded="true"><i class="fa big-icon fa fa-home sub-icon-mg icon-wrap"></i> <span class="mini-click-non">Dashboard</span></a>                                
                         </li>
+
+                        <li id="removable" class="{{$lastSegment=='category' ? 'active' : '' }}">
+                            <a class="" title="Category" href="{{ url('auth/admin/category') }}" aria-expanded="true"><i class="fa big-icon fa fa-home sub-icon-mg icon-wrap"></i> <span class="mini-click-non">Category</span></a>                                
+                        </li>
                         <li id="removable" class="{{$lastSegment=='users' ? 'active' : '' }}">
                             <a class="has-arrow" href="{{ url('auth/admin/users') }}" aria-expanded="false"><i class="fa big-icon fa fa-users sub-icon-mg icon-wrap"></i> <span class="mini-click-non">Users</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
@@ -113,10 +117,10 @@ $lastSegment = end($explode);
                                 <li class="{{$lastSegment=='post' ? 'active' : '' }}"><a title="Add Post" href="{{ url('auth/admin/add/post') }}"><i class="fa fa-files-o sub-icon-mg sub-icon-mg" aria-hidden="true"></i><span class="mini-sub-pro">Add Post</span></a></li>
                             </ul>
                         </li>
-                        <li id="removable" class="{{$lastSegment=='posts' ? 'active' : '' }}">
-                            <a class="has-arrow" href="{{ url('auth/admin/posts') }}" aria-expanded="false"><i class="fa big-icon fa-files-o sub-icon-mg icon-wrap"></i> <span class="mini-click-non">Pages</span></a>
+                        <li id="removable" class="{{$lastSegment=='pages' ? 'active' : '' }}">
+                            <a class="has-arrow" href="{{ url('auth/admin/pages') }}" aria-expanded="false"><i class="fa big-icon fa-files-o sub-icon-mg icon-wrap"></i> <span class="mini-click-non">Pages</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li class="{{$lastSegment=='posts' ? 'active' : '' }}"><a title="All Page" href="{{ url('auth/admin/posts') }}"><i class="fa fa-files-o sub-icon-mg" aria-hidden="true"></i><span class="mini-sub-pro">All Page</span></a></li>
+                                <li class="{{$lastSegment=='pages' ? 'active' : '' }}"><a title="All Page" href="{{ url('auth/admin/pages') }}"><i class="fa fa-files-o sub-icon-mg" aria-hidden="true"></i><span class="mini-sub-pro">All Page</span></a></li>
                                 <li class="{{$lastSegment=='page' ? 'active' : '' }}"><a title="Add Page" href="{{ url('auth/admin/add/page') }}"><i class="fa fa-files-o sub-icon-mg" aria-hidden="true"></i><span class="mini-sub-pro">Add Page</span></a></li>
                             </ul>
                         </li>

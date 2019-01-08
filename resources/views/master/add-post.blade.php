@@ -1,5 +1,12 @@
 @extends('master.master')
 @section('content')
+@if (!empty($data['id']))
+@php $action = 'update/'.$data['id'] @endphp
+@php $template = 'Edit Record' @endphp
+@else
+@php $action = 'store' @endphp
+@php $template = 'Add Record' @endphp
+@endif
 <div class="product-sales-area mg-tb-30">
   <div class="container-fluid">
     <div class="row">
@@ -9,7 +16,7 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="caption pro-sl-hd">
-                  <span class="caption-subject text-uppercase"><b>Add {{ucwords($data['type'])}}</b></span>
+                  <span class="caption-subject text-uppercase"><b>{{$template}} {{ucwords($data['type'])}}</b></span>
                 </div>
               </div>
             </div>
@@ -25,11 +32,7 @@
             </div>
           </div>
           @endif
-          @if (!empty($data['id']))
-          @php $action = 'update/'.$data['id'] @endphp
-          @else
-          @php $action = 'store' @endphp
-          @endif
+          
           <form method ="post" action="{{ url('auth/admin/post/'.$action) }}" class="postform form-horizontal" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input type="hidden" name="post_type" value="{{$data['type']}}">
@@ -38,7 +41,7 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <div class="panel panel-primary">
                   <div class="panel-heading">
-                    <h4 class="panel-title">User Info</h4>
+                    <h4 class="panel-title">{{$template}}</h4>
                   </div>
                   <div class="panel-body">
                     <div class="review-content-section">
@@ -96,29 +99,39 @@
                   </div>
                 </div>
               </div>
+              @if (\Route::current()->getName() != 'add-page' && \Route::current()->getName() != 'edit-page')              
+            
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="panel panel-primary">
                   <div class="panel-heading">
                     <h4 class="panel-title">Categories</h4>
                   </div>
                   <div class="panel-body">
+                  <!-- Get store save categries in $ cats -->
                     @php $Cats = array(); @endphp
                     @foreach($postCats as $key => $cat)
-                    @php $Cats[] = $cat->category_id; @endphp 
+                      @php $Cats[] = $cat->category_id; @endphp 
                     @endforeach
-                    @foreach($categories as $key => $category)
-                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="i-checks pull-left">
+               
+                     <div id="tree1">
+                      @foreach($categories as $category)
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cat-{{$category->id}}">
+                      <div class="i-checks pull-left">
                           <label>
-                            <input type="checkbox" name="category[]" value="{{ $key}}" {{ in_array($key, $Cats ) ? 'checked' : '' }}> <i></i>  {{$category}} 
-                          </label>
+                        <input type="checkbox" name="category[]" value="{{ $category->id }}" {{ in_array($category->id, $Cats ) ? 'checked' : '' }} > <i></i>  {{ $category->title }}
+                        </label>
                         </div>
+                        @if(count($category->childs))
+                        @include('master/managePostChild',['childs' => $category->childs])
+                        @endif
                       </div>
-                    @endforeach
-                   
+                      @endforeach
+                    </div>
                   </div>
                 </div>
               </div>
+              @endif
+
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div class="panel panel-primary">
                   <div class="panel-heading">
