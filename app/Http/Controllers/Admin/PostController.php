@@ -33,7 +33,6 @@ class PostController extends Controller
     */
     public function create($type, $id=false)
     {	
-      $postCats       = Post::with('categories')->get();
       $postCats       = CategoryPost::where('post_id',$id)->get();
       // $postCats = Category::find(1);
       $postCats       = json_decode($postCats);
@@ -118,8 +117,9 @@ class PostController extends Controller
         // dd($request->category);
         // dd($post);
         $post->categories()->attach($request->category);
-         $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
+        $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
         Helper::add_post_meta( $post->id, '_meta_tags',  serialize($metaTags)); 
+
         if($request->hasFile('uploadFile')){
         $sliders = array();
         foreach ($request->file('uploadFile') as $key => $value) {
@@ -192,6 +192,17 @@ class PostController extends Controller
           }
          
         }
+        // dd($post);
+        $post = Post::find($id);
+        $postCats       = CategoryPost::where('post_id',$id)->select('category_id')->get();
+      // $postCats = Category::find(1);
+        $postCats       = json_decode($postCats);
+        $cats = array();
+        foreach ($postCats as $key => $value) {
+          $cats[] = $postCats[$key]->category_id;
+        }
+        $postCats     = $post->categories()->detach($cats);
+        $post->categories()->attach($request->category);
         // check _meta_tags  exists or not
         $_meta_tags     = Helper::get_post_meta( $id, '_meta_tags');
         if($_meta_tags){
