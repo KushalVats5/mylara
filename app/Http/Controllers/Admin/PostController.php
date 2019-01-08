@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Category;
+use App\CategoryPost;
 use App\User;
 use App\Post;
 Use Redirect;
@@ -33,8 +34,10 @@ class PostController extends Controller
     public function create($type, $id=false)
     {	
       $postCats       = Post::with('categories')->get();
-      // dd($postCats);
+      $postCats       = CategoryPost::where('post_id',$id)->get();
+      // $postCats = Category::find(1);
       $postCats       = json_decode($postCats);
+      // dd($postCats);
       $categories     = Category::where('parent_id', '=', 0)->get();
       $allCategories  = Category::pluck('title','id')->all();
     	if($id){

@@ -102,18 +102,18 @@
                     <h4 class="panel-title">Categories</h4>
                   </div>
                   <div class="panel-body">
+                    @php $Cats = array(); @endphp
+                    @foreach($postCats as $key => $cat)
+                    @php $Cats[] = $cat->category_id; @endphp 
+                    @endforeach
                     @foreach($categories as $key => $category)
                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="i-checks pull-left">
                           <label>
-                            <input type="checkbox" name="category[]" value="{{ $key}}"> <i></i>  {{$category}} 
+                            <input type="checkbox" name="category[]" value="{{ $key}}" {{ in_array($key, $Cats ) ? 'checked' : '' }}> <i></i>  {{$category}} 
                           </label>
                         </div>
                       </div>
-                    @endforeach
-                    
-                    @foreach($postCats as $key => $cat)
-                    {{$cat->title}}
                     @endforeach
                    
                   </div>

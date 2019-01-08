@@ -18,7 +18,7 @@ class Post extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'post_category');
+        return $this->belongsToMany(Category::class, 'category_post');
     }
     public function author() {
       return $this->belongsTo('App\User', 'user_id');
@@ -32,6 +32,10 @@ class Post extends Model
     {
         return $this->belongsTo('App\Category');
     }
+     public function postCategory() {
+       return $this->hasMany('App\PostCategory', 'category_id' );
+   }
+
    /* public function category() {
         return $this->belongsTo(Category::class); // don't forget to add your full namespace
     }
