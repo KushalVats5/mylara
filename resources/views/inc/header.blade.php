@@ -59,7 +59,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('/') }}  "><img src="https://vtechinfosystems.com/wp-content/uploads/2018/09/vtechinfosystems-logo-1-1.png" alt="" width="200" height="auto" /></a>
+            <a class="navbar-brand" href="{{ url('/') }}  "><img src="{{ URL::asset('master/img/logo/logo.png') }}  " alt="" width="200" height="auto" /></a>
           </div>
           <div class="navbar-collapse collapse ">
             <ul class="nav navbar-nav">

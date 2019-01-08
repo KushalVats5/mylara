@@ -32,7 +32,8 @@ class PostController extends Controller
     */
     public function create($type, $id=false)
     {	
-      $postCats       = Category::with('posts')->get();
+      $postCats       = Post::with('categories')->get();
+      // dd($postCats);
       $postCats       = json_decode($postCats);
       $categories     = Category::where('parent_id', '=', 0)->get();
       $allCategories  = Category::pluck('title','id')->all();
@@ -112,6 +113,7 @@ class PostController extends Controller
           'excerpt'			   => htmlspecialchars($request->excerpt),
         ]);
         // dd($request->category);
+        // dd($post);
         $post->categories()->attach($request->category);
          $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
         Helper::add_post_meta( $post->id, '_meta_tags',  serialize($metaTags)); 
@@ -156,19 +158,20 @@ class PostController extends Controller
         }
 
       	Post::where('id',$id)->update([
-	      		'title' 			=> $request->title,
-		        'slug' 				=> $request->slug,
-		        'post_type' 		=> $request->post_type,
-		        'featured_image' 	=> $featured_image,
-		        'content' 			=> htmlspecialchars($request->content),
-		        'excerpt'			=> htmlspecialchars($request->excerpt),
+	      		'title' 			   => $request->title,
+		        'slug' 				   => $request->slug,
+		        'post_type' 		 => $request->post_type,
+		        'featured_image' => $featured_image,
+		        'content' 			 => htmlspecialchars($request->content),
+		        'excerpt'			   => htmlspecialchars($request->excerpt),
       	]);
         
 
 	     $metaTags = array('keywords' => $request->keywords, 'description' => $request->description);
         
-        $post_slider  = Helper::get_post_meta( $id, '_post_slider');
 
+       // check _post_slider  exists or not
+        $post_slider    = Helper::get_post_meta( $id, '_post_slider');
         $post_slider  = unserialize($post_slider);
         if($request->hasFile('uploadFile')){
            $sliders = array();
@@ -186,7 +189,13 @@ class PostController extends Controller
           }
          
         }
-        Helper::update_post_meta( $id, '_meta_tags',  serialize($metaTags));
+        // check _meta_tags  exists or not
+        $_meta_tags     = Helper::get_post_meta( $id, '_meta_tags');
+        if($_meta_tags){
+          Helper::update_post_meta( $id, '_meta_tags',  serialize($metaTags));
+        }else{
+          Helper::add_post_meta( $id, '_meta_tags',  serialize($metaTags));
+        }
 		   
         
         return redirect()->back()->with('success', 'Record successfully updated!');

@@ -90,7 +90,7 @@ $lastSegment = end($explode);
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="{{ url('auth/admin') }}"><img class="main-logo" src="{{ URL::asset('master/img/logo/vtechinfosystems-logo.png') }}" alt="" /></a>
+                <a href="{{ url('auth/admin') }}"><img class="main-logo" src="{{ URL::asset('master/img/logo/logo.png') }}" alt="" /></a>
                 <strong><img src="{{ URL::asset('master/img/logo/logosn.png') }}" alt="" /></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">

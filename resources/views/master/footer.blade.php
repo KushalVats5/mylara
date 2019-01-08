@@ -3,7 +3,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="footer-copy-right">
-                            <p>Copyright &copy; {{date('Y')}} <a href="https://vtechinfosystems.com/">vtechinfosystems.com</a> All rights reserved.</p>
+                            <p>Copyright &copy; {{date('Y')}} <a href="http://localhost/test-lara/public/">Mylara</a> All rights reserved.</p>
                         </div>
                     </div>
                 </div>
