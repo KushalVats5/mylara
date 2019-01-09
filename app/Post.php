@@ -32,9 +32,20 @@ class Post extends Model
     {
         return $this->belongsTo('App\Category');
     }
-     public function postCategory() {
+    
+    public function postCategory() 
+    {
        return $this->hasMany('App\PostCategory', 'category_id' );
-   }
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+    }
 
    /* public function category() {
         return $this->belongsTo(Category::class); // don't forget to add your full namespace

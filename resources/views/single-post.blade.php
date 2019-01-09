@@ -56,6 +56,45 @@
           <div class="container"> {!! html_entity_decode($post->excerpt) !!}</div>
         </section>
 
+        <section>
+         <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                       
+                          @include('master/redirectMessages')
+                            <p><b>{{ $post->title }}</b></p>
+                            <p>
+                                {{ $post->body }}
+                            </p>
+                            <hr />
+                            <h4>Display Comments</h4>
+                            @include('_comment_replies', ['comments' => $post->comments, 'post_id' => $post->id])
+                            <hr />
+                            <h4>Add comment</h4>
+                            <form method="post" action="{{ route('comment.add') }}" class="comment-main-form">
+                              <div class="comment-main">
+                                  <div class="form-group">
+                                     <!--  <input type="text" name="comment_body" class="form-control" /> -->
+                                     <textarea name="comment_body" rows="5" class="form-control" placeholder="Add comment"></textarea>
+                                      <input type="hidden" name="post_id" value="{{ $post->id }}" />
+                                  </div>
+                                  <div class="form-group">
+                                    @if(Auth::check())
+                                      <input type="submit" class="btn btn-primary btn-comment" value="Add Comment" />
+                                    @else
+                                       <a href="{{ route('user-login') }}" id="" class="btn btn-primary btn-comment" value="Add Comment" />Add Comment</a>
+                                    @endif
+                                  </div>
+                              <div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
       <!--  <p> <a href="https://www.facebook.com/pratik.chauhan.cp">« Connect With Me | Chauhan PRatik</a><br /> <a href="http://bootsnipp.com/cppratikcp">« Go back to all tutorials?</a> </p>  -->
       </div> 
     </div> 
@@ -121,7 +160,10 @@ table {
 
 a img {
   border: none; }
-
+.btn.btn-primary.btn-comment, .btn.btn-primary.btn-comment-reply {
+    background: #0683c9;
+    border-color: #0683c9;
+}
 /* =Scss Variables
 -------------------------------------------------------------- */
 /* =Global
@@ -207,6 +249,11 @@ section {
 
 /* =Header
 -------------------------------------------------------------- */
+input.btn.btn-primary.btn.btn-primary.btn-comment-reply {
+    background: #0683c9;
+    border-color: #0683c9;
+    margin-top: 10px;
+}
 header {
   width: 100%;
   height: 150px;
@@ -272,6 +319,9 @@ header {
   clear: both;
   height: 0; }
 
+.display-comment {
+  margin-left: 3%;
+}
 /* =Media Queries
 -------------------------------------------------------------- */
 @media all and (max-width: 660px) {

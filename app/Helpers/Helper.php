@@ -165,10 +165,13 @@ class Helper {
                     ->select(['meta_value'])
                     ->where('post_id', $post->id)
                     ->get();
-          $metas = unserialize($metas[0]->meta_value);
+        $metas = unserialize($metas[0]->meta_value);
+
+        $user = User::find($post->user_id);
+
         $image = asset('featured/medium/'.$post->featured_image);
         $postMetas = "<title>".$post->title." - ".env('SITE_URL', 'Site Name')."</title>\r\n";
-        $postMetas .= "<meta name='author' content='".Auth::user()->name."'>\r\n";
+        $postMetas .= "<meta name='author' content='".$user->name."'>\r\n";
         foreach ($metas as $key => $value) {
             $postMetas .= "<meta name='".$key."' itemprop='description' content='".$value."' />\r\n";
         }
@@ -188,7 +191,7 @@ class Helper {
     {
         $slug = Request::segment(count(Request::segments()));
         $post = DB::table('posts')
-                    ->where('slug', $slug)->first(['id','title','featured_image', 'excerpt']);
+                    ->where('slug', $slug)->first(['id','title','featured_image', 'excerpt','user_id']);
         return $post;
     }
 

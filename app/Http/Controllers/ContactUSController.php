@@ -28,8 +28,8 @@ class ContactUSController extends Controller
         $this->validate($request, [
         		'name' => 'required',
         		'email' => 'required|email',
-        		'message' => 'required'
-        	]);
+        		'message' => 'required|'
+        ]);
 
         ContactUS::create($request->all());
 

@@ -79,7 +79,7 @@ Route::group(['middleware' => 'is-subscriber'], function () {
 });
 
 // User Login
-Route::get('auth/login','AuthController@index');
+Route::get('auth/login','AuthController@index')->name('user-login');
 // User check authentication
 Route::post('auth/checkauth','AuthController@checkauth');
 // User logout
@@ -93,11 +93,14 @@ Route::get('auth/user/edit/{id}','RegisterController@edit');
 // User update
 Route::post('user/update/','RegisterController@update');
 // Display single post
-Route::get('/post/{slug}', 'HomeController@showpost');
+Route::get('/post/{slug}', 'PostController@index');
 // Display contact us page
 Route::get('contact-us', 'ContactUSController@contactUS');
 // Save contact us page query
 Route::post('contact-us', ['as'=>'contactus.store','uses'=>'ContactUSController@contactUSPost']);
+
+Route::post('/comment/store', 'CommentController@store')->name('comment.add');
+Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
 // 404 page
 Route::get('/404', function () {
     return view('404');

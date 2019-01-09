@@ -25,12 +25,5 @@ class HomeController extends Controller
     {
         return view('home');
     }
-
-    /**
-    * Show post
-    */    
-    public function showpost($slug){
-        $post = Post::where('slug', $slug)->first();
-        return view('single-post')->with('post', $post);
-    }
+    
 }
