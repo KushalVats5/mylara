@@ -139,5 +139,31 @@
     <script src="{{ URL::asset('master/js/main.js') }}"></script>
     <script src="{{ URL::asset('master/js/script.js') }}"></script>
 </body>
-
+<script type="text/javascript">
+    $('#country_select').change(function(){
+    var countryID = $(this).val();    
+      alert(countryID);
+    if(countryID){
+        $.ajax({
+           type:"GET",
+           url:"{{route('get.statelist')}}?country_id="+countryID,
+           success:function(res){               
+            if(res){
+                $("#state_select").empty();
+                $("#state_select").append('<option>Select</option>');
+                $.each(res,function(key,value){
+                    $("#state_select").append('<option value="'+key+'">'+value+'</option>');
+                });
+           
+            }else{
+               $("#state_select").empty();
+            }
+           }
+        });
+    }else{
+        $("#state_select").empty();
+        // $("#city").empty();
+    }      
+   });
+</script>
 </html>

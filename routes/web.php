@@ -68,6 +68,18 @@ Route::group(['middleware' => 'is-admin'], function () {
 	Route::post('images-upload', 'Admin\PostController@imagesUploadPost')->name('images.upload');
 	// Delete slide ( post / page )
 	Route::post('auth/admin/del/slide', 'Admin\PostController@delslide');
+	
+	Route::get('auth/admin/country', 'Admin\CountryStateCityController@index')->name('add.country');
+	Route::post('auth/admin/store', 'Admin\CountryStateCityController@store')->name('country.store');
+
+	Route::get('auth/admin/state', 'Admin\CountryStateCityController@state')->name('add.state');
+	Route::post('auth/admin/storestate', 'Admin\CountryStateCityController@storestate')->name('state.store');
+
+	Route::get('auth/admin/city', 'Admin\CountryStateCityController@city')->name('add.city');
+	Route::get('auth/admin/city/{id}', 'Admin\CountryStateCityController@city')->name('edit.city');
+	Route::post('auth/admin/storecity', 'Admin\CountryStateCityController@storecity')->name('city.store');
+
+	Route::get('auth/admin/get-state-list','Admin\CountryStateCityController@getStateList')->name('get.statelist');;
 });
 
 // Subscriber middelware
