@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Pagination\Paginator;
 use App\Country;
 use App\State;
 use App\City;
@@ -84,20 +85,29 @@ class CountryStateCityController extends Controller
     // Show city form
     public function city( $id=false )
     {
-    	$state = City::with('country')->get();
-    	dd($state->toArray());
+
+    	$list = City::with(['state','country'])->paginate(2);
+    	if(count($list)){
+    		$list = $list->toArray();
+    	}else{
+    		$list = false;
+    	}
     	$countries = Country::all();
     	$countries = $countries->toArray();	
 
     	$states = State::all();
     	$states = $states->toArray();	
 
-        return view('master/city', compact('countries', 'states'));
+    	$city = City::find($id);
+    	$city = $city ? $city->toArray() : '';
+
+        return view('master/city', compact('countries', 'states', 'list', 'city'));
     }
 
     // Save city
-    public function storecity(Request $request)
+    public function storecity(Request $request, $id=false )
     {
+
     	$rules = [
           'name'   	 	=> 'required',
           'country_id'  => 'required',
@@ -113,14 +123,15 @@ class CountryStateCityController extends Controller
           // send back to the page with the input data and errors
           return redirect()->back()->withInput()->withErrors($validator);
       	}
-      	// dd($request->all());
-
-	  	$data 		= $request->all();
-		$state 		= City::create($data);
-		$state->save();
-		if($state){
-        	return redirect()->back()->with('success', 'Record has been added successfully!');
-		}
+  		$city = City::findOrNew($id);
+	    $city->fill($request->all());
+	    $city->save();
+      	if( $id ){
+      		return redirect('auth/admin/city')->with('success', 'Record has been updated successfully!');
+      	}else{
+      		return redirect()->back()->with('success', 'Record has been added successfully!');
+      	}
+	    
     }
 
     // Get all state based on country id using ajax call
@@ -128,5 +139,13 @@ class CountryStateCityController extends Controller
     {
         $states = State::where('country_id',$request->country_id)->pluck('name','id');
         return response()->json($states);
+    }
+
+    // Delete city
+    public function deletecity($id)
+    {
+        $city 	= City::find($id);
+		$city 	= $city->delete();
+		return redirect('delete.city')->with('success', 'Record has been deleted successfully!');
     }
 }
